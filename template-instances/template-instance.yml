@@ -11,5 +11,12 @@ spec:
     exposedEndpoints:
       send-order-to-act: 30243
       receive-check-results: 30243
+    sessionAliases:
+      clientSessionAlias: sessionAlias1
+      serverSessionAlias: sessionAlias2
+    credentials:
+      connCredentials:
+        username: user1
+        password: password1
 
 

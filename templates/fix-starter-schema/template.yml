@@ -22,8 +22,20 @@ spec:
           name: server
   exposedEndpoints:
     - name: send-order-to-act
-      value: TBD
+      value: PLACEHOLDER
       reference: act
     - name: receive-check-results
-      value: TBD
+      value: PLACEHOLDER
       reference: check1
+  customConfig:
+    sessionAliases:
+      - alias: clientSessionAlias
+        value: PLACEHOLDER
+        reference: demo-conn1
+      - alias: serverSessionAlias
+        value: PLACEHOLDER
+        reference: fix-demo-server1
+    credentials:
+      - alias: connCredentials
+        username: PLACEHOLDER
+        password: PLACEHOLDER
