@@ -1,0 +1,29 @@
+metadata:
+  name: fix-starter-schema-template
+spec:
+  pins:
+    - alias: send-fix-message
+      reference:
+        box: act-fix
+        pin:
+          type: grpcServer
+          name: serer
+    - alias: subscribe-parsed-messages
+      reference:
+        box: codec-fix
+        pin:
+          type: mqPublisher
+          name: out_codec_decode
+    - alias: util
+      reference:
+        box: util
+        pin:
+          type: grpcServer
+          name: server
+  exposedEndpoints:
+    - name: send-order-to-act
+      value: TBD
+      reference: act
+    - name: receive-check-results
+      value: TBD
+      reference: check1

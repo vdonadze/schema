@@ -1,0 +1,15 @@
+metadata:
+  name: fix-starter-schema-template-instance
+spec:
+  reference: fix-starter-schema-template4
+  use:
+    pins:
+      - send-fix-message
+      - subscribe-parsed-messages
+      - util
+  setValues:
+    exposedEndpoints:
+      send-order-to-act: 30243
+      receive-check-results: 30243
+
+

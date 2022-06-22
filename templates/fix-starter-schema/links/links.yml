@@ -1,0 +1,73 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Link
+metadata:
+  name: links
+spec:
+  dictionaries-relation:
+  - name: codec-fix-dictionary
+    box: codec-fix
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  - name: demo-conn1-dictionary
+    box: demo-conn1
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  - name: server1-dictionary
+    box: fix-demo-server1
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  boxes-relation:
+    router-mq:
+    - name: from-act-to-codec
+      from:
+        box: act-fix
+        pin: to_send
+      to:
+        box: codec-fix
+        pin: in_codec_encode
+    - name: codec-to-act
+      from:
+        box: codec-fix
+        pin: out_codec_decode
+      to:
+        box: act-fix
+        pin: from_codec
+    - name: codec-to-check1
+      from:
+        box: codec-fix
+        pin: out_codec_decode
+      to:
+        box: check1
+        pin: from_codec
+    - name: provider-to-codec
+      from:
+        box: rpt-data-provider
+        pin: to_codec_fix
+      to:
+        box: codec-fix
+        pin: in_codec_general_decode
+    - name: codec-to-provider
+      from:
+        box: codec-fix
+        pin: out_codec_general_decode
+      to:
+        box: rpt-data-provider
+        pin: from_codec
+    - name: from-codec-to-demo-conn1
+      from:
+        box: codec-fix
+        pin: out_codec_encode
+      to:
+        box: demo-conn1
+        pin: fix_to_send
+    router-grpc:
+    - name: act-to-check1
+      from:
+        box: act-fix
+        pin: to_check1
+      to:
+        box: check1
+        pin: server

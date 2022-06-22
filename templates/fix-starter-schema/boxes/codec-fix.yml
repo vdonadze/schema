@@ -1,0 +1,74 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Box
+metadata:
+  name: codec-fix
+spec:
+  image-name: ghcr.io/th2-net/th2-codec-fix
+  image-version: 3.10.4
+  type: th2-codec
+  custom-config:
+    outgoingEventBatchBuildTime: 1
+    maxOutgoingEventBatchSize: 99
+    numOfEventBatchCollectorWorkers: 1
+    codecClassName: com.exactpro.sf.externalapi.codec.impl.ExternalFixCodecFactory
+  pins:
+  - name: in_codec_encode
+    connection-type: mq
+    attributes:
+    - encoder_in
+    - parsed
+    - subscribe
+  - name: out_codec_encode
+    connection-type: mq
+    attributes:
+    - encoder_out
+    - raw
+    - publish
+  - name: in_codec_decode
+    connection-type: mq
+    attributes:
+    - decoder_in
+    - raw
+    - subscribe
+  - name: out_codec_decode
+    connection-type: mq
+    attributes:
+    - decoder_out
+    - parsed
+    - publish
+  - name: in_codec_general_encode
+    connection-type: mq
+    attributes:
+    - general_encoder_in
+    - parsed
+    - subscribe
+  - name: out_codec_general_encode
+    connection-type: mq
+    attributes:
+    - general_encoder_out
+    - raw
+    - publish
+  - name: in_codec_general_decode
+    connection-type: mq
+    attributes:
+    - general_decoder_in
+    - raw
+    - subscribe
+  - name: out_codec_general_decode
+    connection-type: mq
+    attributes:
+    - general_decoder_out
+    - parsed
+    - publish
+  extended-settings:
+    service:
+      enabled: false
+    envVariables:
+      JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:MaxRAMPercentage=85
+    resources:
+      limits:
+        memory: 250Mi
+        cpu: 250m
+      requests:
+        memory: 100Mi
+        cpu: 20m

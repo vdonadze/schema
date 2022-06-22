@@ -1,0 +1,72 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2CoreBox
+metadata:
+  name: rpt-data-provider
+spec:
+  image-name: ghcr.io/th2-net/th2-rpt-data-provider
+  image-version: 5.0.15
+  type: th2-rpt-data-provider
+  custom-config:
+    hostname: localhost
+    port: 8080
+    responseTimeout: 60000
+    serverCacheTimeout: 60000
+    clientCacheTimeout: 60
+    eventCacheSize: 100000
+    messageCacheSize: 100000
+    ioDispatcherThreadPoolSize: 15
+    codecCacheSize: 1000
+    codecBatchesCacheSize: 200
+    maxMessagesLimit: 5000
+    messageSearchPipelineBuffer: 2000
+    rabbitBatchMergeBuffer: 2000
+    rabbitMergedBatchSize: 128
+    decodeMessageConsumerCount: 16
+    cradleDispatcherPoolSize: 15
+    eventSearchChunkSize: 10000
+  pins:
+    - name: to_codec_fix
+      connection-type: mq
+      attributes:
+        - to_codec
+        - raw
+        - publish
+        - fix-demo-server1
+        - fix-demo-server2
+        - dc-demo-server1
+        - fix-demo-server2
+        - demo-conn1
+        - demo-conn2
+        - demo-dc1
+        - demo-dc2
+        - demo-log
+    - name: to_codec_csv
+      connection-type: mq
+      attributes:
+        - to_codec
+        - raw
+        - publish
+        - demo-csv
+    - name: from_codec
+      connection-type: mq
+      attributes:
+        - from_codec
+        - parsed
+        - subscribe
+  extended-settings:
+    service:
+      enabled: true
+      type: NodePort
+      endpoints:
+        - name: 'grpc'
+          targetPort: 8080
+          nodePort: 30789
+    envVariables:
+      JAVA_TOOL_OPTIONS: '-XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000 milliseconds" -XX:+UseContainerSupport -XX:MaxRAMPercentage=85'
+    resources:
+      limits:
+        memory: 2000Mi
+        cpu: 600m
+      requests:
+        memory: 300Mi
+        cpu: 20m
