@@ -1,0 +1,45 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2CoreBox
+metadata:
+  name: act-ui-backend
+spec:
+  image-name: ghcr.io/th2-net/th2-act-ui-backend
+  image-version: 0.3.0
+  type: th2-rpt-data-provider
+  custom-config:
+    responseTimeout: 60000
+    hostname: localhost
+    port: 8080
+    ioDispatcherThreadPoolSize: 1
+    schemaDefinitionLink: http://infra-mgr.service:8080/schema/demo
+    schemaDescriptorsLink: http://infra-mgr.service:8080/descriptor/demo
+    namespace: th2-demo
+    actTypes: [th2-act]
+
+  pins:
+    - name: to-fix-codec
+      connection-type: mq
+      attributes:
+        # enter the target session name here
+        - demo-conn1
+        - demo-conn2
+        - to_conn
+        - parsed
+        - publish
+  extended-settings:
+    service:
+      enabled: false
+      type: NodePort
+      endpoints:
+        - name: 'grpc'
+          targetPort: 8080
+          nodePort: 31257
+    envVariables:
+      JAVA_TOOL_OPTIONS: '-XX:+UseContainerSupport -XX:MaxRAMPercentage=90'
+    resources:
+      limits:
+        memory: 700Mi
+        cpu: 309m
+      requests:
+        memory: 500Mi
+        cpu: 50m

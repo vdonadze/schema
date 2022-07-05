@@ -1,0 +1,32 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Box
+metadata:
+  name: cradle-viewer-entry-point
+spec:
+  image-name: stub
+  image-version: stub
+  type: th2-cradle-viewer
+  pins:
+    - name: to_codec
+      connection-type: mq
+      attributes:
+        - raw
+        - publish
+    - name: from_codec
+      connection-type: mq
+      storageOnDemand: false
+      queueLength: 1000
+      attributes:
+        - parsed
+        - subscribe
+      settings:
+        storageOnDemand: false
+        queueLength: 1000
+  extended-settings:
+    externalBox:
+      enabled: true
+      endpoints:
+        - name: 'grpc'
+          targetPort: 3334
+    service:
+      enabled: false

@@ -1,0 +1,52 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Box
+metadata:
+  name: codec-csv
+spec:
+  image-name: ghcr.io/th2-net/th2-codec-csv
+  image-version: 3.1.0
+  type: th2-codec
+  custom-config:
+    default-header: [CsvRecordType,OrderQty,OrdType,SecurityIDSource,ClOrdID,OrderCapacity,AccountType,Side,Price,SecurityID,TransactTime,SecondaryClOrdID,OrderID,ExecID,LeavesQty,Text,ExecType,OrdStatus,CumQty]
+    delimiter: ','
+    encoding: UTF-8
+    display-name: CodecCsv1
+  pins:
+    # decoder
+    - name: in_codec_decode
+      connection-type: mq
+      attributes:
+        - decode_in
+        - raw
+        - subscribe
+    - name: out_codec_decode
+      connection-type: mq
+      attributes:
+        - decode_out
+        - parsed
+        - publish
+    # decoder general (technical)
+    - name: in_codec_general_decode
+      connection-type: mq
+      attributes:
+        - general_decoder_in
+        - raw
+        - subscribe
+    - name: out_codec_general_decode
+      connection-type: mq
+      attributes:
+        - general_decoder_out
+        - parsed
+        - publish
+  extended-settings:
+    service:
+      enabled: false
+    envVariables:
+      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
+    resources:
+      limits:
+        memory: 200Mi
+        cpu: 200m
+      requests:
+        memory: 100Mi
+        cpu: 50m

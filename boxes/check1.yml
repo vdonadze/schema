@@ -34,11 +34,11 @@ spec:
   extended-settings:
     service:
       enabled: true
-      type: NodePort
+      type: LoadBalancer
       endpoints:
         - name: grpc
           targetPort: 8080
-          nodePort: 31179
+          nodePort: 31279
     envVariables:
       JAVA_TOOL_OPTIONS: '-XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:MaxRAMPercentage=85'
     resources:

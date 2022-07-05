@@ -1,0 +1,349 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Link
+metadata:
+  name: links
+spec:
+  dictionaries-relation:
+  - name: codec-fix-dictionary
+    box: codec-fix
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+#   - name: codec-fix-demo-dictionary
+#     box: codec-fix-demo
+#     dictionary:
+#       name: fix50-generic
+#       type: MAIN
+  - name: demo-conn1-dictionary
+    box: demo-conn1
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  - name: demo-conn2-dictionary
+    box: demo-conn2
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  - name: demo-dc1-dictionary
+    box: demo-dc1
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  - name: demo-dc2-dictionary
+    box: demo-dc2
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  - name: codec-sim-dictionary
+    box: codec-sim-fix
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  - name: server1-dictionary
+    box: fix-demo-server1
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  - name: server2-dictionary
+    box: fix-demo-server2
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  - name: serverdc1-dictionary
+    box: dc-demo-server1
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  - name: serverdc2-dictionary
+    box: dc-demo-server2
+    dictionary:
+      name: fix50-generic
+      type: MAIN
+  - name: demo-conn-dic-2
+    box: demo-conn1
+    dictionary:
+      name: fix50-trm2
+      type: LEVEL1
+  boxes-relation:
+    router-mq:
+    - name: from-act-to-codec
+      from:
+        box: act-fix
+        pin: to_send
+      to:
+        box: codec-fix
+        pin: in_codec_encode
+    - name: act-to-fix-codec
+      from:
+        box: act-ui-backend
+        pin: to-fix-codec
+      to:
+        box: codec-fix
+        pin: in_codec_encode
+    - name: codec-to-act
+      from:
+        box: codec-fix
+        pin: out_codec_decode
+      to:
+        box: act-fix
+        pin: from_codec
+    - name: codec-to-check1
+      from:
+        box: codec-fix
+        pin: out_codec_decode
+      to:
+        box: check1
+        pin: from_codec
+#     - name: codec-fix-demo-to-check1
+#       from:
+#         box: codec-fix-demo
+#         pin: out_codec_decode
+#       to:
+#         box: check1
+#         pin: from_codec
+    - name: codec-fix-to-recon
+      from:
+        box: codec-fix
+        pin: out_codec_decode
+      to:
+        box: recon
+        pin: incoming
+    - name: codec-csv-to-recon
+      from:
+        box: codec-csv
+        pin: out_codec_decode
+      to:
+        box: recon
+        pin: incoming
+    - name: codec-sim-to-sim
+      from:
+        box: codec-sim-fix
+        pin: out_codec_decode
+      to:
+        box: sim-demo
+        pin: subscribe
+    - name: provider-to-codec
+      from:
+        box: rpt-data-provider
+        pin: to_codec_fix
+      to:
+        box: codec-fix
+        pin: in_codec_general_decode
+    - name: codec-to-provider
+      from:
+        box: codec-fix
+        pin: out_codec_general_decode
+      to:
+        box: rpt-data-provider
+        pin: from_codec
+    - name: provider-to-codec-c
+      from:
+        box: rpt-data-provider
+        pin: to_codec_csv
+      to:
+        box: codec-csv
+        pin: in_codec_general_decode
+    - name: codec-c-to-provider
+      from:
+        box: codec-csv
+        pin: out_codec_general_decode
+      to:
+        box: rpt-data-provider
+        pin: from_codec
+    - name: from-codec-to-demo-conn2
+      from:
+        box: codec-fix
+        pin: out_codec_encode
+      to:
+        box: demo-conn2
+        pin: fix_to_send
+    - name: from-codec-to-demo-conn1
+      from:
+        box: codec-fix
+        pin: out_codec_encode
+      to:
+        box: demo-conn1
+        pin: fix_to_send
+    - name: cradle-viewer-to-codec
+      from:
+        box: cradle-viewer-entry-point
+        pin: to_codec
+      to:
+        box: codec-fix
+        pin: in_codec_decode
+    - name: codec-to-cradle-viewer
+      from:
+        box: codec-fix
+        pin: out_codec_decode
+      to:
+        box: cradle-viewer-entry-point
+        pin: from_codec
+    - name: democonn1-codec
+      from:
+        box: demo-conn1
+        pin: in_raw
+      to:
+        box: codec-fix
+        pin: in_codec_decode
+    - name: democonn2-in-codec
+      from:
+        box: demo-conn2
+        pin: in_raw
+      to:
+        box: codec-fix
+        pin: in_codec_decode
+    - name: demodc1-codec
+      from:
+        box: demo-dc1
+        pin: in_raw
+      to:
+        box: codec-fix
+        pin: in_codec_decode
+    - name: demodc2-codec
+      from:
+        box: demo-dc2
+        pin: in_raw
+      to:
+        box: codec-fix
+        pin: in_codec_decode
+    - name: demo-conn1_out-codec
+      from:
+        box: demo-conn1
+        pin: out_raw
+      to:
+        box: codec-fix
+        pin: in_codec_decode
+    - name: demo-conn2_out-codec
+      from:
+        box: demo-conn2
+        pin: out_raw
+      to:
+        box: codec-fix
+        pin: in_codec_decode
+    - name: demo-dc1_out-codec
+      from:
+        box: demo-dc1
+        pin: out_raw
+      to:
+        box: codec-fix
+        pin: in_codec_decode
+    - name: demo-dc2_out-codec
+      from:
+        box: demo-dc2
+        pin: out_raw
+      to:
+        box: codec-fix
+        pin: in_codec_decode
+    - name: sim-server1
+      from:
+        box: sim-demo
+        pin: send1
+      to:
+        box: codec-sim-fix
+        pin: in_codec_encode
+    - name: sim-server2
+      from:
+        box: sim-demo
+        pin: send2
+      to:
+        box: codec-sim-fix
+        pin: in_codec_encode
+    - name: sim-serverdc1
+      from:
+        box: sim-demo
+        pin: send3
+      to:
+        box: codec-sim-fix
+        pin: in_codec_encode
+    - name: sim-serverdc2
+      from:
+        box: sim-demo
+        pin: send4
+      to:
+        box: codec-sim-fix
+        pin: in_codec_encode
+    - name: codec-fix-server1
+      from:
+        box: codec-sim-fix
+        pin: out_codec_encode
+      to:
+        box: fix-demo-server1
+        pin: fix_to_send
+    - name: codec-fix-server2
+      from:
+        box: codec-sim-fix
+        pin: out_codec_encode
+      to:
+        box: fix-demo-server2
+        pin: fix_to_send
+    - name: codec-dc-server1
+      from:
+        box: codec-sim-fix
+        pin: out_codec_encode
+      to:
+        box: dc-demo-server1
+        pin: fix_to_send
+    - name: codec-dc-server2
+      from:
+        box: codec-sim-fix
+        pin: out_codec_encode
+      to:
+        box: dc-demo-server2
+        pin: fix_to_send
+    - name: server1-codec
+      from:
+        box: fix-demo-server1
+        pin: in_raw
+      to:
+        box: codec-sim-fix
+        pin: in_codec_decode
+    - name: server2-codec
+      from:
+        box: fix-demo-server2
+        pin: in_raw
+      to:
+        box: codec-sim-fix
+        pin: in_codec_decode
+    - name: readlog-to-codec
+      from:
+        box: read-log
+        pin: read_log_demo_out
+      to:
+        box: codec-fix
+        pin: in_codec_decode
+    - name: readcsv-to-codeccsv
+      from:
+        box: read-csv
+        pin: out_log
+      to:
+        box: codec-csv
+        pin: in_codec_decode
+    router-grpc:
+    - name: act-to-check1
+      from:
+        box: act-fix
+        pin: to_check1
+      to:
+        box: check1
+        pin: server
+    - name: recon-to-util
+      from:
+        box: recon
+        pin: to_util
+      to:
+        box: util
+        pin: server
+    - name: script-to-act
+      from:
+        box: script-entry-point
+        pin: to_act
+      to:
+        box: act-fix
+        pin: server
+    - name: script-to-check1
+      from:
+        box: script-entry-point
+        pin: to_check1
+      to:
+        box: check1
+        pin: server

@@ -1,0 +1,104 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Box
+metadata:
+  name: demo-conn2
+spec:
+  image-name: ghcr.io/th2-net/th2-conn-fix
+  image-version: 3.7.2-th2-3799-2469558886
+  type: th2-conn
+  custom-config:
+    session-alias: demo-conn2
+    workspace: /home/sailfish/workspace
+    type: th2_service:FIX_Client
+    name: demo-conn2
+    settings:
+      autoStartable: true
+      expectedTimeOfStarting: 2000
+      invertStoredMessageTypes: false
+      performDump: false
+      persistMessages: true
+      waitingTimeBeforeStarting: 0
+      allowUnknownMsgFields: false
+      beginString: FIXT.1.1
+      checkLatency: false
+      defaultApplVerID: 9
+      duplicateTagsAllowed: false
+      endTime: 00:00:00
+      fileStorePath: store/fix/sessions
+      logHeartbeats: false
+      maxLatency: 120
+      microsecondsInTimeStampFields: false
+      millisecondsInTimeStampFields: true
+      orderingFields: false
+      receiveLimit: 0
+      rejectInvalidMessage: false
+      resetOnDisconnect: false
+      resetOnLogout: false
+      senderCompID: DEMO-CONN2
+      startTime: 00:00:00
+      targetCompID: FGW
+      useLocalTime: false
+      useSSL: false
+      validateFieldsHaveValues: true
+      validateFieldsOutOfOrder: true
+      validateFieldsOutOfRange: true
+      validateSequenceNumbers: true
+      validateUserDefinedFields: true
+      addNextExpectedMsgSeqNum: false
+      autorelogin: true
+      doLogonOnStart: true
+      encryptPassword: false
+      fakeResendRequest: true
+      heartBtInt: 30
+      idleTimeout: 0
+      ignoreAbsenceOf141tag: false
+      logonTimeout: 10
+      logoutTimeout: 10
+      performanceMode: false
+      reconnectInterval: 5
+      requiresOrigSendingTime: true
+      resetSeqNumFlag: true
+      seqNumSender: 0
+      seqNumTarget: 0
+      socketConnectHost: fix-demo-server2
+      socketConnectPort: 8080
+      useDefaultApplVerID: true
+  pins:
+    - name: in_raw
+      connection-type: mq
+      attributes:
+        - first
+        - raw
+        - publish
+        - store
+    - name: out_raw
+      connection-type: mq
+      attributes:
+        - second
+        - raw
+        - publish
+        - store
+    - name: fix_to_send
+      connection-type: mq
+      attributes:
+        - send
+        - raw
+        - subscribe
+      filters:
+        - metadata:
+            - field-name: session_alias
+              expected-value: demo-conn2
+              operation: EQUAL
+  extended-settings:
+    service:
+      enabled: true
+    envVariables:
+      JAVA_TOOL_OPTIONS: |
+        -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.rmi.port=1099 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.local.only=false -Djava.rmi.server.hostname=127.0.0.1 -XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:MaxRAMPercentage=85
+    resources:
+      limits:
+        memory: 200Mi
+        cpu: 200m
+      requests:
+        memory: 100Mi
+        cpu: 20m

@@ -1,0 +1,47 @@
+apiVersion: th2.exactpro.com/v1
+kind: Th2Box
+metadata:
+  name: read-csv
+spec:
+  image-name: ghcr.io/th2-net/th2-read-csv
+  image-version: stub
+  type: th2-read
+  custom-config:
+    sourceDirectory: "${user.home}/demo_outputs/"
+    aliases:
+      demo-csv:
+        nameRegexp: "csv_test.csv"
+    common:
+      staleTimeout: "PT1S"
+      maxBatchSize: 100
+      maxPublicationDelay: "PT5S"
+      leaveLastFileOpen: false
+      fixTimestamp: false
+      maxBatchesPerSecond: -1 # unlimited
+      disableFileMovementTracking: true
+    pullingInterval: "PT5S"
+    validateContent: false
+    validateOnlyExtraData: false
+  pins:
+    - name: out_log
+      connection-type: mq
+      attributes:
+        - raw
+        - publish
+        - store
+  extended-settings:
+    externalBox:
+      enabled: true
+    service:
+      enabled: false
+    envVariables:
+      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
+    resources:
+      limits:
+        memory: 200Mi
+        cpu: 200m
+      requests:
+        memory: 100Mi
+        cpu: 50m
+  prometheus:
+    enabled: false
