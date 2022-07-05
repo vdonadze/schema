@@ -29,7 +29,7 @@ spec:
   extended-settings:
     service:
       enabled: true
-      type: LoadBalancer
+      type: NodePortlancer
       endpoints:
       - name: grpc
         targetPort: 8080
