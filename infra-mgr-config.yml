@@ -2,7 +2,7 @@ kind: SettingsFile
 metadata:
   name: infra-mgr-config
 spec:
-  k8s-propagation: rule
+  k8s-propagation: deny
   th2BoxConfig:
     logging:
       logLevelTh2: DEBUG
