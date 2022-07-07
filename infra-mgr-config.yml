@@ -22,17 +22,4 @@ spec:
   cradle:
     port: 0
     useCustomPassword: false
-  mqRouter:
-    connectionTimeout: -1
-    connectionCloseTimeout: 10000
-    maxRecoveryAttempts: 5
-    minConnectionRecoveryTimeout: 10000
-    maxConnectionRecoveryTimeout: 6000
-    prefetchCount: 10
-  grpcRouter:
-    workers: 5
-  cradleManager:
-    connectionTimeout: -1
-    connectionCloseTimeout: 10000
-    pageSize: 5000
   k8s-propagation: deny
