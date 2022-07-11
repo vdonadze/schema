@@ -44,8 +44,8 @@ spec:
           pin: in_raw
         - box: demo-conn1
           pin: out_raw
-#        - box: read-log
-#          pin: read_log_demo_out
+        - box: read-log
+          pin: read_log_demo_out
       - name: in_codec_general_encode
         attributes:
         - general_encoder_in
