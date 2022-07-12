@@ -1,38 +1,43 @@
-apiVersion: th2.exactpro.com/v1
+apiVersion: th2.exactpro.com/v2
 kind: Th2Box
 metadata:
   name: read-log
 spec:
-  image-name: ghcr.io/th2-net/th2-read-log
-  image-version: stub
+  imageName: ghcr.io/th2-net/th2-read-log
+  imageVersion: stub
   type: th2-read
-  custom-config:
+  customConfig:
     logDirectory: "${user.home}/demo_outputs/"
     aliases:
       demo-log:
-        regexp: "8=FIX.+10=.+\\b\\u0001"
-        pathFilter: ".*log_test.*"
-        groups: [0]
+        regexp: 8=FIX.+10=.+\b\u0001
+        pathFilter: .*log_test.*
+        groups:
+        - 0
+  extendedSettings:
+    envVariables:
+      JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError
+    externalBox:
+      enabled: true
+    resources:
+      limits:
+        cpu: 200m
+        memory: 200Mi
+      requests:
+        cpu: 20m
+        memory: 100Mi
+    service:
+      enabled: false
   pins:
-    - name: read_log_demo_out
-      connection-type: mq
-      attributes:
+    mq:
+      publishers:
+      - name: read_log_demo_out
+        attributes:
         - raw
         - publish
         - store
-  extended-settings:
-    externalBox:
-      enabled: true
-    service:
-      enabled: false
-    envVariables:
-      JAVA_TOOL_OPTIONS: "-XX:+ExitOnOutOfMemoryError"
-    resources:
-      limits:
-        memory: 200Mi
-        cpu: 200m
-      requests:
-        memory: 100Mi
-        cpu: 20m
+        linkTo:
+        - box: codec-fix
+          pin: in_codec_decode
   prometheus:
     enabled: false

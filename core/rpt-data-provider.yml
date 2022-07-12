@@ -1,12 +1,12 @@
-apiVersion: th2.exactpro.com/v1
+apiVersion: th2.exactpro.com/v2
 kind: Th2CoreBox
 metadata:
   name: rpt-data-provider
 spec:
-  image-name: ghcr.io/th2-net/th2-rpt-data-provider
-  image-version: 5.0.15
+  imageName: ghcr.io/th2-net/th2-rpt-data-provider
+  imageVersion: 5.0.15
   type: th2-rpt-data-provider
-  custom-config:
+  customConfig:
     hostname: localhost
     port: 8080
     responseTimeout: 60000
@@ -24,10 +24,34 @@ spec:
     decodeMessageConsumerCount: 16
     cradleDispatcherPoolSize: 15
     eventSearchChunkSize: 10000
+  extendedSettings:
+    envVariables:
+      JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000
+        milliseconds" -XX:+UseContainerSupport -XX:MaxRAMPercentage=85
+    resources:
+      limits:
+        cpu: 600m
+        memory: 2000Mi
+      requests:
+        cpu: 20m
+        memory: 300Mi
+    service:
+      enabled: true
+      nodePort:
+      - name: grpc
+        containerPort: 8080
+        exposedPort: 30289
   pins:
-    - name: to_codec_fix
-      connection-type: mq
-      attributes:
+    mq:
+      subscribers:
+      - name: from_codec
+        attributes:
+        - from_codec
+        - parsed
+        - subscribe
+      publishers:
+      - name: to_codec_fix
+        attributes:
         - to_codec
         - raw
         - publish
@@ -40,33 +64,12 @@ spec:
         - demo-dc1
         - demo-dc2
         - demo-log
-    - name: to_codec_csv
-      connection-type: mq
-      attributes:
+        linkTo:
+        - box: codec-fix
+          pin: in_codec_general_decode
+      - name: to_codec_csv
+        attributes:
         - to_codec
         - raw
         - publish
         - demo-csv
-    - name: from_codec
-      connection-type: mq
-      attributes:
-        - from_codec
-        - parsed
-        - subscribe
-  extended-settings:
-    service:
-      enabled: true
-      type: NodePort
-      endpoints:
-        - name: 'grpc'
-          targetPort: 8080
-          nodePort: 30289
-    envVariables:
-      JAVA_TOOL_OPTIONS: '-XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000 milliseconds" -XX:+UseContainerSupport -XX:MaxRAMPercentage=85'
-    resources:
-      limits:
-        memory: 2000Mi
-        cpu: 600m
-      requests:
-        memory: 300Mi
-        cpu: 20m

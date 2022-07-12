@@ -1,12 +1,12 @@
-apiVersion: th2.exactpro.com/v1
+apiVersion: th2.exactpro.com/v2
 kind: Th2Box
 metadata:
   name: demo-conn1
 spec:
-  image-name: ghcr.io/th2-net/th2-conn-fix
-  image-version: 3.7.2-th2-3799-2469558886
+  imageName: ghcr.io/th2-net/th2-conn-fix
+  imageVersion: 3.7.2-th2-3799-2469558886
   type: th2-conn
-  custom-config:
+  customConfig:
     session-alias: demo-conn1
     workspace: /home/sailfish/workspace
     type: th2_service:FIX_Client
@@ -63,43 +63,49 @@ spec:
       socketConnectHost: fix-demo-server1
       socketConnectPort: 8080
       useDefaultApplVerID: true
-  pins:
-  - name: in_raw
-    connection-type: mq
-    attributes:
-    - first
-    - raw
-    - publish
-    - store
-  - name: out_raw
-    connection-type: mq
-    attributes:
-    - second
-    - raw
-    - publish
-    - store
-  - name: fix_to_send
-    connection-type: mq
-    attributes:
-    - send
-    - raw
-    - subscribe
-    - test
-    filters:
-    - metadata:
-      - field-name: session_alias
-        expected-value: demo-conn1
-        operation: EQUAL
-  extended-settings:
-    service:
-      enabled: true
+  extendedSettings:
     envVariables:
       JAVA_TOOL_OPTIONS: |
         -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.rmi.port=1099 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.local.only=false -Djava.rmi.server.hostname=127.0.0.1 -XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:MaxRAMPercentage=85
     resources:
       limits:
-        memory: 200Mi
         cpu: 200m
+        memory: 200Mi
       requests:
-        memory: 100Mi
         cpu: 20m
+        memory: 100Mi
+    service:
+      enabled: true
+  pins:
+    mq:
+      subscribers:
+      - name: fix_to_send
+        attributes:
+        - send
+        - raw
+        - subscribe
+        - test
+        filters:
+        - metadata:
+          - expectedValue: demo-conn1
+            fieldName: session_alias
+            operation: EQUAL
+      publishers:
+      - name: in_raw
+        attributes:
+        - first
+        - raw
+        - publish
+        - store
+        linkTo:
+        - box: codec-fix
+          pin: in_codec_decode
+      - name: out_raw
+        attributes:
+        - second
+        - raw
+        - publish
+        - store
+        linkTo:
+        - box: codec-fix
+          pin: in_codec_decode
