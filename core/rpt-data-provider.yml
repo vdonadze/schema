@@ -52,6 +52,8 @@ spec:
         linkTo:
         - box: codec-fix
           pin: out_codec_general_decode
+        - box: fake
+          pin: fake_pin
       publishers:
       - name: to_codec_fix
         attributes:
