@@ -90,6 +90,9 @@ spec:
           - expectedValue: demo-conn1
             fieldName: session_alias
             operation: EQUAL
+        linkTo:
+        - box: codec-fix
+          pin: out_codec_encode
       publishers:
       - name: in_raw
         attributes:
@@ -97,15 +100,9 @@ spec:
         - raw
         - publish
         - store
-        linkTo:
-        - box: codec-fix
-          pin: in_codec_decode
       - name: out_raw
         attributes:
         - second
         - raw
         - publish
         - store
-        linkTo:
-        - box: codec-fix
-          pin: in_codec_decode

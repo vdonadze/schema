@@ -70,6 +70,9 @@ spec:
         attributes:
         - parsed
         - subscribe
+        linkTo:
+        - box: codec-fix
+          pin: out_codec_decode
     grpc:
       client:
       - name: to_util

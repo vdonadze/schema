@@ -49,6 +49,9 @@ spec:
         - from_codec
         - parsed
         - subscribe
+        linkTo:
+        - box: codec-fix
+          pin: out_codec_general_decode
       publishers:
       - name: to_codec_fix
         attributes:
@@ -64,9 +67,6 @@ spec:
         - demo-dc1
         - demo-dc2
         - demo-log
-        linkTo:
-        - box: codec-fix
-          pin: in_codec_general_decode
       - name: to_codec_csv
         attributes:
         - to_codec

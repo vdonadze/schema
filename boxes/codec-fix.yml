@@ -31,11 +31,21 @@ spec:
         - encoder_in
         - parsed
         - subscribe
+        linkTo:
+        - box: act-fix
+          pin: to_send
       - name: in_codec_decode
         attributes:
         - decoder_in
         - raw
         - subscribe
+        linkTo:
+        - box: demo-conn1
+          pin: in_raw
+        - box: demo-conn1
+          pin: out_raw
+        - box: read-log
+          pin: read_log_demo_out
       - name: in_codec_general_encode
         attributes:
         - general_encoder_in
@@ -46,27 +56,20 @@ spec:
         - general_decoder_in
         - raw
         - subscribe
+        linkTo:
+        - box: rpt-data-provider
+          pin: to_codec_fix
       publishers:
       - name: out_codec_encode
         attributes:
         - encoder_out
         - raw
         - publish
-        linkTo:
-        - box: demo-conn1
-          pin: fix_to_send
       - name: out_codec_decode
         attributes:
         - decoder_out
         - parsed
         - publish
-        linkTo:
-        - box: act-fix
-          pin: from_codec
-        - box: check1
-          pin: from_codec
-        - box: recon
-          pin: incoming
       - name: out_codec_general_encode
         attributes:
         - general_encoder_out
@@ -77,6 +80,3 @@ spec:
         - general_decoder_out
         - parsed
         - publish
-        linkTo:
-        - box: rpt-data-provider
-          pin: from_codec
