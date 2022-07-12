@@ -37,9 +37,6 @@ spec:
         attributes:
         - subscribe
         - parsed
-        linkTo:
-        - box: codec-fix
-          pin: out_codec_decode
     grpc:
       server:
       - name: server

@@ -36,5 +36,8 @@ spec:
         - raw
         - publish
         - store
+        linkTo:
+        - box: codec-fix
+          pin: in_codec_decode
   prometheus:
     enabled: false
