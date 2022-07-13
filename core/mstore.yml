@@ -1,17 +1,17 @@
-apiVersion: th2.exactpro.com/v1
+apiVersion: th2.exactpro.com/v2
 kind: Th2Mstore
 metadata:
   name: mstore
 spec:
-  image-name: ghcr.io/th2-net/th2-mstore
-  image-version: 3.5.0
-  extended-settings:
-    service:
-      enabled: false
+  imageName: ghcr.io/th2-net/th2-mstore
+  imageVersion: 3.5.0
+  extendedSettings:
     resources:
       limits:
-        memory: 500Mi
         cpu: 100m
+        memory: 500Mi
       requests:
-        memory: 100Mi
         cpu: 20m
+        memory: 100Mi
+    service:
+      enabled: false
