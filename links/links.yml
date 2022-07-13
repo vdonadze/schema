@@ -3,6 +3,17 @@ kind: Th2Link
 metadata:
   name: links
 spec:
+  multi-dictionaries-relation:
+    - name: codec-fix-multi-dictionary
+      dictionaries:
+        - name: fix50-generic
+          alias: fix50-generic-alias
+        - name: fix50-trm2
+          alias: fix50-trm2-alias
+    - name: demo-conn1-multi-dictionary
+      dictionaries:
+        - name: fix50-generic
+          alias: fix50-generic-alias
   dictionaries-relation:
 ####### MAIN
   - name: codec-fix-dictionary

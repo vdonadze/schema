@@ -11,6 +11,17 @@ spec:
     maxOutgoingEventBatchSize: 99
     numOfEventBatchCollectorWorkers: 1
     codecClassName: com.exactpro.sf.externalapi.codec.impl.ExternalFixCodecFactory
+    genericFixDictionary: fix50-generic-alias
+    dictionaryMap:
+      dict_for_msg_a: fix50-generic-alias
+      dict_for_msg_b: fix50-trm2-alias
+    subStructure:
+      genericFixDictionary: fix50-generic-alias
+      subStructure:
+        genericFixDictionary: fix50-generic-alias
+        dictionaryMap:
+          dict_for_msg_a: fix50-generic-alias
+          dict_for_msg_b: fix50-trm2-alias
   pins:
   - name: in_codec_encode
     connection-type: mq

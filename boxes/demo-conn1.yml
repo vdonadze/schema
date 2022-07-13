@@ -44,6 +44,13 @@ spec:
       validateFieldsOutOfRange: true
       validateSequenceNumbers: true
       validateUserDefinedFields: true
+      genericFixDictionary: fix50-generic-alias
+      subStructure:
+        genericFixDictionary: fix50-generic-alias
+        subStructure:
+          genericFixDictionary: fix50-generic-alias
+          dictionaryMap:
+            dict_for_msg_a: fix50-generic-alias
       addNextExpectedMsgSeqNum: false
       autorelogin: true
       doLogonOnStart: true
