@@ -5,12 +5,14 @@ metadata:
 spec:
   multi-dictionaries-relation:
     - name: codec-fix-multi-dictionary
+      box: codec-fix
       dictionaries:
         - name: fix50-generic
           alias: fix50-generic-alias
         - name: fix50-trm2
           alias: fix50-trm2-alias
     - name: demo-conn1-multi-dictionary
+      box: demo-conn1
       dictionaries:
         - name: fix50-generic
           alias: fix50-generic-alias
