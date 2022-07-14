@@ -43,6 +43,5 @@ spec:
         attributes:
         - raw
         - publish
-        - store
   prometheus:
     enabled: false
