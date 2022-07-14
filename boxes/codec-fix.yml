@@ -10,6 +10,8 @@ spec:
     outgoingEventBatchBuildTime: 1
     maxOutgoingEventBatchSize: 99
     numOfEventBatchCollectorWorkers: 1
+    primaryUserName: ${secret_value:userNameSecret}
+    primaryPassword: ${secret_value:passwordSecret}
     codecClassName: com.exactpro.sf.externalapi.codec.impl.ExternalFixCodecFactory
     genericFixDictionary: "${dictionary_link:fix50-generic}"
     dictionaryMap:
