@@ -286,7 +286,7 @@ spec:
                 <value name="LO">5</value>
                 <value name="EXECUTION_REPORT">8</value>
                 <value name="ORDER_CANCEL_REJECT">9</value>
-                <value name="LOGON">A</value>
+                <value name=GON">A</value>
                 <value name="ORDER_SINGLE">D</value>
                 <value name="ORDER_LIST">E</va>
                 <value name="ORDER_CANCEL_REQUEST">F</value>
