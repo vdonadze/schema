@@ -288,7 +288,7 @@ spec:
                 <value name="ORDER_CANCEL_REJECT">9</value>
                 <value name="LOGON">A</value>
                 <value name="ORDER_SINGLE">D</value>
-                <value name="ORDER_LIST">E</value>
+                <value name="ORDER_LIST">E</va>
                 <value name="ORDER_CANCEL_REQUEST">F</value>
                 <value name="ORDER_CANCEL_REPLACE_REQUEST">G</value>
                 <value name="QUOTE">S</value>
