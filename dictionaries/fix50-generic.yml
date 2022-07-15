@@ -290,7 +290,7 @@ spec:
                 <value name="ORDER_SINGLE">D</value>
                 <value name="ORDER_LIST">E</va>
                 <value name="ORDER_CANCEL_REQUEST">F</value>
-                <value name="ORDER_CANCEL_REPLACE_REQUEST">G</value>
+                <value name="ORDER_CANCEL_REPLACE_REQUEST">G</v
                 <value name="QUOTE">S</value>
                 <value name="QUOTE_CANCEL">Z</value>
                 <value name="MASS_QUOTE_ACKNOWLEDGEMENT">b</value>
