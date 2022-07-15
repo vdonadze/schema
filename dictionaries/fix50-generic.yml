@@ -283,7 +283,7 @@ spec:
                 <value name="RESEND_REQUEST">2</value>
                 <value name="REJECT">3</value>
                 <value name="SEQUENCE_RESET">4</value>
-                <value name="LOGOUT">5</value>
+                <value name="LO">5</value>
                 <value name="EXECUTION_REPORT">8</value>
                 <value name="ORDER_CANCEL_REJECT">9</value>
                 <value name="LOGON">A</value>
