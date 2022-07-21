@@ -46,6 +46,11 @@ spec:
         linkTo:
         - box: check1
           pin: server
+      - name: to_check12
+        serviceClass: com.exactpro.th2.check1.grpc.Check1Service
+        linkTo:
+          - box: check12
+            pin: server2
       server:
       - name: server
         serviceClasses:
