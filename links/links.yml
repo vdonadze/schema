@@ -23,6 +23,11 @@ spec:
     dictionary:
       name: fix50-generic
       type: MAIN
+  - name: codec-fix-dictionary-duplicated
+    box: codec-fix
+    dictionary:
+      name: fix50-trm2
+      type: MAIN
   - name: demo-conn1-dictionary
     box: demo-conn1
     dictionary:
