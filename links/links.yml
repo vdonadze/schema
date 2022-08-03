@@ -27,7 +27,7 @@ spec:
     box: codec-fix
     dictionary:
       name: fix50-trm2
-      type: MAIN
+      type: MAIN2
   - name: demo-conn1-dictionary
     box: demo-conn1
     dictionary:
