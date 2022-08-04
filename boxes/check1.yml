@@ -2,6 +2,9 @@ apiVersion: th2.exactpro.com/v1
 kind: Th2Box
 metadata:
   name: check1
+  annotations:
+    key: value
+    key2: value
 spec:
   image-name: ghcr.io/th2-net/th2-check1
   image-version: 3.9.0

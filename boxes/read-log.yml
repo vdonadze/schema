@@ -2,6 +2,9 @@ apiVersion: th2.exactpro.com/v1
 kind: Th2Box
 metadata:
   name: read-log
+  annotations:
+    key: value
+    key2: value
 spec:
   image-name: ghcr.io/th2-net/th2-read-log
   image-version: stub

@@ -2,6 +2,9 @@ apiVersion: th2.exactpro.com/v1
 kind: Th2Link
 metadata:
   name: links
+  annotations:
+    key: value
+    key2: value
 spec:
   multi-dictionaries-relation:
     - name: codec-fix-multi-dictionary
