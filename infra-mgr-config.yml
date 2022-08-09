@@ -19,4 +19,4 @@ spec:
     logging:
       logLevelTh2: DEBUG
       logLevelRoot: INFO
-  k8s-propagation: rule
+  k8s-propagation: deny
