@@ -11,6 +11,20 @@ spec:
     maxOutgoingEventBatchSize: 99
     numOfEventBatchCollectorWorkers: 1
     codecClassName: com.exactpro.sf.externalapi.codec.impl.ExternalFixCodecFactory
+    genericFixDictionary: "${dictionary_link:fix50-generic}"
+    dictionaryMap:
+      dict_for_msg_a: "${dictionary_link:fix50-generic}"
+      dict_for_msg_b: "${dictionary_link:fix50-trm2}"
+    subStructure:
+      genericFixDictionary: "${dictionary_link:fix50-generic}"
+      subStructure:
+        genericFixDictionary: "${dictionary_link:fix50-generic}"
+        dictionaryMap:
+          dict_for_msg_a: "${dictionary_link:fix50-generic}"
+          dict_for_msg_b: "${dictionary_link:fix50-trm2}"
+    dictionaries:
+      MAIN2: "${dictionary_link:fix50-trm2}"
+      MAIN: "${dictionary_link:fix50-generic}"
   extendedSettings:
     envVariables:
       JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:MaxRAMPercentage=85

@@ -47,6 +47,8 @@ spec:
       applicationClassName: com.exactpro.sf.services.fix.ServerApplication
       keepMessagesInMemory: true
       socketAcceptPort: 8080
+    dictionaries:
+      MAIN: "${dictionary_link:fix50-generic}"
   extendedSettings:
     envVariables:
       JAVA_TOOL_OPTIONS: |

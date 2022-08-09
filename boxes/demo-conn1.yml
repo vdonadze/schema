@@ -44,6 +44,13 @@ spec:
       validateFieldsOutOfRange: true
       validateSequenceNumbers: true
       validateUserDefinedFields: true
+      genericFixDictionary: "${dictionary_link:fix50-generic}"
+      subStructure:
+        genericFixDictionary: "${dictionary_link:fix50-generic}"
+        subStructure:
+          genericFixDictionary: "${dictionary_link:fix50-generic}"
+          dictionaryMap:
+            dict_for_msg_a: "${dictionary_link:fix50-generic}"
       addNextExpectedMsgSeqNum: false
       autorelogin: true
       doLogonOnStart: true
@@ -63,6 +70,9 @@ spec:
       socketConnectHost: fix-demo-server1
       socketConnectPort: 8080
       useDefaultApplVerID: true
+    dictionaries:
+      LEVEL1: "${dictionary_link:fix50-trm2}"
+      MAIN: "${dictionary_link:fix50-generic}"
   extendedSettings:
     envVariables:
       JAVA_TOOL_OPTIONS: |
