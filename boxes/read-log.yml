@@ -1,5 +1,5 @@
 apiVersion: th2.exactpro.com/v2
-kind: Th2Box
+kind: Th2BoxSDAsd
 metadata:
   annotations:
     key: value
