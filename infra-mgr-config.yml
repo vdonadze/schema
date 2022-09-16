@@ -2,6 +2,8 @@ kind: SettingsFile
 metadata:
   name: infra-mgr-config
 spec:
+  bookConfig:
+    defaultBook: "myBook12"
   th2BoxConfig:
     mqRouter:
       connectionTimeout: -1
@@ -19,8 +21,6 @@ spec:
     logging:
       logLevelTh2: DEBUG
       logLevelRoot: INFO
-    bookConfig:
-      defaultBook: "myBook12"
   cradle:
     port: 0
     useCustomPassword: false
