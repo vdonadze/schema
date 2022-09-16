@@ -19,6 +19,8 @@ spec:
     logging:
       logLevelTh2: DEBUG
       logLevelRoot: INFO
+    bookConfig:
+      defaultBook: "myBook12"
   cradle:
     port: 0
     useCustomPassword: false
