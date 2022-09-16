@@ -3,7 +3,7 @@ metadata:
   name: infra-mgr-config
 spec:
   bookConfig:
-    defaultBook: "myBook12"
+    defaultBook: "myBook"
   th2BoxConfig:
     mqRouter:
       connectionTimeout: -1
