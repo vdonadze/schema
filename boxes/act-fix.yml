@@ -39,6 +39,7 @@ spec:
         attributes:
         - publish
         - parsed
+        - subscribe
     grpc:
       client:
       - name: to_check1
