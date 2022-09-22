@@ -83,6 +83,7 @@ spec:
         attributes:
         - decoder_out
         - parsed
+        - raw
         - publish
       - name: out_codec_general_encode
         attributes:
