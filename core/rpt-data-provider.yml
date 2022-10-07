@@ -27,7 +27,7 @@ spec:
         memory: 300Mi
     service:
       enabled: true
-      NodePort:
+      nodePort:
         - name: grpc
           exposedPort: 31743
           containerPort: 8080
