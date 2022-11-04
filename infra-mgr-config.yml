@@ -24,4 +24,4 @@ spec:
   cradle:
     port: 0
     useCustomPassword: false
-  k8s-propagation: deny
+  k8s-propagation: rule
