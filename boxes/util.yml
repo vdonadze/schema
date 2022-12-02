@@ -4,7 +4,8 @@ metadata:
   name: util
 spec:
   imageName: ghcr.io/th2-net/th2-util
-  imageVersion: 3.1.0
+  imageVersion: 3.0.0
+  versionRange: 3.+
   type: th2-util
   extendedSettings:
     envVariables:
@@ -14,10 +15,10 @@ spec:
         cpu: 200m
         memory: 200Mi
       requests:
-        cpu: 20m
+        cpu: 50m
         memory: 100Mi
     service:
-      enabled: true
+      enabled: false
   pins:
     grpc:
       server:

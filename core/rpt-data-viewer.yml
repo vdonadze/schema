@@ -4,17 +4,20 @@ metadata:
   name: rpt-data-viewer
 spec:
   imageName: ghcr.io/th2-net/th2-rpt-viewer
-  imageVersion: 3.1.56
+  imageVersion: 5.0.25-books-pages-5-3512403717
   type: th2-rpt-viewer
   extendedSettings:
     resources:
       limits:
-        cpu: 600m
-        memory: 200Mi
+        cpu: 50m
+        memory: 50Mi
       requests:
-        cpu: 20m
-        memory: 100Mi
+        cpu: 50m
+        memory: 50Mi
     service:
       enabled: true
-  prometheus:
-    enabled: true
+      clusterIP:
+      - name: gui
+        containerPort: 8080
+        port: 8080
+

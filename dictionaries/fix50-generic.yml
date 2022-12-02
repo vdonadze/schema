@@ -3,6 +3,7 @@ kind: Th2Dictionary
 metadata:
   name: fix50-generic
 spec:
+#  compressed: "33"
   data: |-
     <?xml version="1.0" encoding="UTF-8"?><!--
       ~ Copyright 2009-2018 Exactpro (Exactpro Systems Limited)

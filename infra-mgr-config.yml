@@ -2,26 +2,18 @@ kind: SettingsFile
 metadata:
   name: infra-mgr-config
 spec:
+  k8s-propagation: rule
   bookConfig:
-    defaultBook: "myBook111"
+    defaultBook: "defaultBook-schema"
   th2BoxConfig:
     mqRouter:
       connectionTimeout: -1
       connectionCloseTimeout: 10000
       maxRecoveryAttempts: 5
-      minConnectionRecoveryTimeout: 10000
-      maxConnectionRecoveryTimeout: 6000
-      prefetchCount: 10
     grpcRouter:
       workers: 5
     cradleManager:
-      connectionTimeout: -1
-      connectionCloseTimeout: 10000
-      pageSize: 5000
+      connectionCloseTimeout: 1000
     logging:
-      logLevelTh2: DEBUG
-      logLevelRoot: INFO
-  cradle:
-    port: 0
-    useCustomPassword: false
-  k8s-propagation: rule
+      logLevelTh2: TRACE
+      logLevelRoot: DEBUG
