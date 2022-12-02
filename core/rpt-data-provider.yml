@@ -4,7 +4,7 @@ metadata:
   name: rpt-data-provider
 spec:
   imageName: ghcr.io/th2-net/th2-rpt-data-provider
-  imageVersion: 5.4.12-master_migration_to_cradle_rebase-3022271409
+  imageVersion: 5.4.18-master_migration_to_cradle_rebase-3368544789
   type: th2-rpt-data-provider
   customConfig:
     hostname: localhost
@@ -28,41 +28,47 @@ spec:
     service:
       enabled: true
       nodePort:
-        - name: grpc
-          exposedPort: 31743
-          containerPort: 8080
+      - name: grpc
+        exposedPort: 31744
+        containerPort: 8080
   pins:
     mq:
       subscribers:
-        - name: from_codec
-          attributes:
-            - from_codec
-            - parsed
-            - subscribe
-        - name: from_codec_codec-fix
-          attributes:
-            - from_codec
-            - parsed
-            - subscribe
-            - arfq01fix21
-            - arfq02fix30
-            - arfq02fix31
-            - arfq02dc30
-          linkTo:
-            - box: codec-fix
-              pin: out_codec_general_decode
+      - name: from_codec
+        attributes:
+        - from_codec
+        - parsed
+        - subscribe
+      - name: from_codec_codec-fix
+        attributes:
+        - from_codec
+        - parsed
+        - subscribe
+        - arfq01fix21
+        - arfq02fix30
+        - arfq02fix31
+        - arfq02dc30
+        linkTo:
+          - box: codec-fix
+            pin: out_codec_general_decode
       publishers:
-        - name: to_codec_codec-fix
-          attributes:
-            - to_codec
-            - raw
-            - publish
-            - arfq01fix21
-            - arfq02fix30
-            - arfq02fix31
-            - arfq02dc30
-        - name: to_codec
-          attributes:
-            - to_codec
-            - raw
-            - publish
+      - name: to_codec_codec-fix
+        attributes:
+        - to_codec
+        - raw
+        - publish
+        - arfq01fix21
+        - arfq02fix30
+        - arfq02fix31
+        - arfq02dc30
+      - name: to_codec
+        attributes:
+        - to_codec
+        - raw
+        - publish
+        - csvtest1
+        - csvtest2
+        - csvtest3
+        - csvtest5
+        - csvtest6
+        - csvtest7

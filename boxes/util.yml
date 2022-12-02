@@ -14,10 +14,10 @@ spec:
         cpu: 200m
         memory: 200Mi
       requests:
-        cpu: 20m
+        cpu: 50m
         memory: 100Mi
     service:
-      enabled: true
+      enabled: false
   pins:
     grpc:
       server:

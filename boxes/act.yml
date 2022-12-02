@@ -1,0 +1,95 @@
+apiVersion: th2.exactpro.com/v2
+kind: Th2Box
+metadata:
+  name: act
+spec:
+  imageName: ghcr.io/th2-net/th2-act-template-j
+  imageVersion: 4.0.0-th2-2150-books-pages-2648415631
+  # versionRange: '4.0.0-th2-'
+#  imageVersion: 3.3.1
+#  versionRange: '3.+'
+  type: th2-act
+  disabled: false
+  extendedSettings:
+    nodeSelector:
+      kubernetes.io/hostname: th2-kuber-test03
+    resources:
+      limits:
+        cpu: 200m
+        memory: 205Mi
+      requests:
+        cpu: 70m
+        memory: 100Mi
+    service:
+      enabled: true
+      nodePort:
+        - name: grpc
+          exposedPort: 31722
+          containerPort: 8080
+  pins:
+    mq:
+      subscribers:
+      - name: from_codec
+        attributes:
+        - first
+        - oe
+        - subscribe
+        - parsed
+        linkTo:
+          - box: codec-fix
+            pin: out_codec_decode
+      - name: to_send_codec
+        attributes:
+        - parsed
+        - first
+        - oe
+        - subscribe
+      publishers:
+      - name: to_send_fix-client
+        attributes:
+        - parsed
+        - publish
+        filters:
+        - metadata:
+          - expectedValue: fix-client
+            fieldName: session_alias
+            operation: EQUAL
+      - name: to_send_fix-server
+        attributes:
+        - parsed
+        - publish
+        filters:
+        - metadata:
+          - expectedValue: fix-server
+            fieldName: session_alias
+            operation: EQUAL
+      - name: to_send_arfq02fix30
+        attributes:
+        - parsed
+        - publish
+        filters:
+        - metadata:
+          - expectedValue: arfq02fix30
+            fieldName: session_alias
+            operation: EQUAL
+    grpc:
+      client:
+      - name: to_check1
+        serviceClass: com.exactpro.th2.check1.grpc.Check1Service
+        linkTo:
+          - box: check1
+            pin: server
+        filters:
+          - properties:
+              - fieldName: method
+                expectedValue: POST
+                operation: EQUAL
+      - name: server
+        serviceClasses:
+        - com.exactpro.th2.act.actServer
+        - com.exactpro.th2.check1.Check1Service
+        - com.exactpro.th2.check1.grpc.Check1Service
+  mqRouter:
+    connectionCloseTimeout: 15001
+  grpcRouter:
+    workers: 6

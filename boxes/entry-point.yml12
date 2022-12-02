@@ -1,0 +1,27 @@
+apiVersion: th2.exactpro.com/v2
+kind: Th2Box
+metadata:
+  name: entry-point
+spec:
+  imageName: dev-script
+  imageVersion: dev-script
+  type: th2-script
+  extended-settings:
+    service:
+      enabled: false
+    resources:
+      limits:
+        memory: 400Mi
+        cpu: 101m
+      requests:
+        memory: 100Mi
+        cpu: 30m
+  pins:
+    mq:
+    - name: msg_raw_to_mstore
+      attributes:
+        - first
+        - raw
+        - publish
+        - store
+        - to_mstore

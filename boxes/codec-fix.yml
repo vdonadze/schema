@@ -4,36 +4,20 @@ metadata:
   name: codec-fix
 spec:
   imageName: ghcr.io/th2-net/th2-codec-fix
-  imageVersion: 3.10.4
+  imageVersion: 4.0.0-th2-3987-dictionaries-custom-config-2789603706
   type: th2-codec
+  # bookName: m_52
   customConfig:
-    outgoingEventBatchBuildTime: 1
-    maxOutgoingEventBatchSize: 99
-    numOfEventBatchCollectorWorkers: 1
     codecClassName: com.exactpro.sf.externalapi.codec.impl.ExternalFixCodecFactory
-    genericFixDictionary: "${dictionary_link:fix50-generic}"
-    dictionaryMap:
-      dict_for_msg_a: "${dictionary_link:fix50-generic}"
-      dict_for_msg_b: "${dictionary_link:fix50-trm2}"
-    subStructure:
-      genericFixDictionary: "${dictionary_link:fix50-generic}"
-      subStructure:
-        genericFixDictionary: "${dictionary_link:fix50-generic}"
-        dictionaryMap:
-          dict_for_msg_a: "${dictionary_link:fix50-generic}"
-          dict_for_msg_b: "${dictionary_link:fix50-trm2}"
     dictionaries:
-      MAIN2: "${dictionary_link:fix50-trm2}"
-      MAIN: "${dictionary_link:fix50-generic}"
+      MAIN: "${dictionary_link:fix50-trm2}"
   extendedSettings:
-    envVariables:
-      JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:MaxRAMPercentage=85
     resources:
       limits:
-        cpu: 250m
-        memory: 250Mi
+        cpu: 101m
+        memory: 400Mi
       requests:
-        cpu: 20m
+        cpu: 31m
         memory: 100Mi
     service:
       enabled: false
@@ -46,20 +30,18 @@ spec:
         - parsed
         - subscribe
         linkTo:
-        - box: act-fix
-          pin: to_send
+          - box: act
+            pin: to_send_fix-client
+          - box: act
+            pin: to_send_arfq02fix30
       - name: in_codec_decode
         attributes:
         - decoder_in
         - raw
         - subscribe
         linkTo:
-        - box: demo-conn1
-          pin: in_raw
-        - box: demo-conn1
-          pin: out_raw
-        - box: read-log
-          pin: read_log_demo_out
+          - box: arfq02fix30
+            pin: out_raw
       - name: in_codec_general_encode
         attributes:
         - general_encoder_in
@@ -71,27 +53,29 @@ spec:
         - raw
         - subscribe
         linkTo:
-        - box: rpt-data-provider
-          pin: to_codec_fix
+          - box: rpt-data-provider
+            pin: to_codec_codec-fix
+          - box: cradle-viewer
+            pin: to_codec
       publishers:
-      - name: out_codec_encode
+      - name: out_codec_general_decode
         attributes:
-        - encoder_out
-        - raw
-        - publish
-      - name: out_codec_decode
-        attributes:
-        - decoder_out
+        - general_decoder_out
         - parsed
-        - raw
         - publish
       - name: out_codec_general_encode
         attributes:
         - general_encoder_out
         - raw
         - publish
-      - name: out_codec_general_decode
+      - name: out_codec_decode
         attributes:
-        - general_decoder_out
+        - decoder_out
         - parsed
         - publish
+      - name: out_codec_encode
+        attributes:
+        - encoder_out
+        - raw
+        - publish
+        # filters: []
