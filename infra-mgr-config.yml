@@ -2,7 +2,7 @@ kind: SettingsFile
 metadata:
   name: infra-mgr-config
 spec:
-  k8s-propagation: deny
+  k8s-propagation: rule
   bookConfig:
     defaultBook: "defaultBook-schema"
   th2BoxConfig:
