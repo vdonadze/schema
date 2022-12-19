@@ -35,6 +35,7 @@ spec:
         - oe
         - subscribe
         - parsed
+        - trigger
         linkTo:
           - box: codec-fix
             pin: out_codec_decode
