@@ -21,7 +21,7 @@ spec:
         cpu: 50m
         memory: 100Mi
     service:
-      enabled: true
+      enabled: false
       nodePort:
       - name: grpc
         exposedPort: 31720
