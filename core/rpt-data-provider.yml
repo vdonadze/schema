@@ -29,7 +29,7 @@ spec:
       enabled: true
       nodePort:
       - name: false
-        exposedPort: 31744
+        exposedPort: 31646
         containerPort: 8080
   pins:
     mq:
