@@ -12,7 +12,7 @@ spec:
   disabled: false
   extendedSettings:
     nodeSelector:
-      kubernetes.io/hostname: th2-kuber-test03
+      kubernetes.io/hostname: de-th2-schema-test
     resources:
       limits:
         cpu: 200m
