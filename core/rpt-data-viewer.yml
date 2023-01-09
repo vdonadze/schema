@@ -4,7 +4,7 @@ metadata:
   name: rpt-data-viewer
 spec:
   imageName: ghcr.io/th2-net/th2-rpt-viewer
-  imageVersion: 5.0.25-books-pages-5-3512403717
+  imageVersion: 5.0.68-books-pages-5-3780193395
   type: th2-rpt-viewer
   extendedSettings:
     resources:

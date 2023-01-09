@@ -6,6 +6,8 @@ spec:
   imageName: ghcr.io/th2-net/th2-check1
   imageVersion: 4.0.0-th2-2150-books-pages-2648452308
   type: th2-check1
+  bookName: m_52
+  disabled: false
   customConfig:
     message-cache-size: 1000
     cleanup-older-than: 60
@@ -24,8 +26,17 @@ spec:
       enabled: true
       nodePort:
       - name: grpc
-        exposedPort: 31720
+        exposedPort: 31724
         containerPort: 8080
+      # - name: second
+      #   exposedPort: 31720
+      #   containerPort: 8081
+      clusterIP:
+        - name: gui
+          containerPort: 8080
+      loadBalancer:
+        - name: grpc
+          containerPort: 8080  
   pins:
     mq:
       subscribers:

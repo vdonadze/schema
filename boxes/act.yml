@@ -2,17 +2,25 @@ apiVersion: th2.exactpro.com/v2
 kind: Th2Box
 metadata:
   name: act
+  # annotations:
+  #   k8s.v1.cni.cncf.io/networks: macvlan-main
+    # key: annotationforactfix
+    # key2: secondannotation
 spec:
   imageName: ghcr.io/th2-net/th2-act-template-j
   imageVersion: 4.0.0-th2-2150-books-pages-2648415631
-  # versionRange: '4.0.0-th2-'
-#  imageVersion: 3.3.1
-#  versionRange: '3.+'
+#   # versionRange: '4.0.0-th2-'
+# #  imageVersion: 3.3.1
+# #  versionRange: '3.+'
   type: th2-act
   disabled: false
+  # bookName: m_52
   extendedSettings:
+    replicas: qqq
     nodeSelector:
-      kubernetes.io/hostname: th2-kuber-test03
+      kubernetes.io/hostname: de-th2-schema-test
+      beta.kubernetes.io/arch: amd64
+      # beta.kubernetes.io/os: linuxxxx
     resources:
       limits:
         cpu: 200m
@@ -21,11 +29,14 @@ spec:
         cpu: 70m
         memory: 100Mi
     service:
-      enabled: true
+      enabled: false
       nodePort:
         - name: grpc
-          exposedPort: 31722
+          exposedPort: 31729
           containerPort: 8080
+    # chartCfg:
+    #     path: example
+    #     ref: exp
   pins:
     mq:
       subscribers:
@@ -35,6 +46,7 @@ spec:
         - oe
         - subscribe
         - parsed
+        # - event
         linkTo:
           - box: codec-fix
             pin: out_codec_decode
@@ -44,10 +56,13 @@ spec:
         - first
         - oe
         - subscribe
+        - test
       publishers:
       - name: to_send_fix-client
         attributes:
         - parsed
+        # - event
+        # - group
         - publish
         filters:
         - metadata:
@@ -57,7 +72,9 @@ spec:
       - name: to_send_fix-server
         attributes:
         - parsed
+        - event
         - publish
+        - test12345
         filters:
         - metadata:
           - expectedValue: fix-server
@@ -89,7 +106,17 @@ spec:
         - com.exactpro.th2.act.actServer
         - com.exactpro.th2.check1.Check1Service
         - com.exactpro.th2.check1.grpc.Check1Service
-  mqRouter:
-    connectionCloseTimeout: 15001
-  grpcRouter:
-    workers: 6
+  # mqRouter:
+  #     maxRecoveryAttempts: 7
+  #     minConnectionRecoveryTimeout: 7
+      # prefetchCount: 7
+      # maxConnectionRecoveryTimeout: 7
+      # connectionTimeout: 7
+      # connectionCloseTimeout: 7
+  
+  # grpcRouter:
+    # workers: 7
+
+  # cradleManager:
+  #   connectionCloseTimeout: 7777
+    # pagesize: 7777

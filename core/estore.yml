@@ -4,7 +4,7 @@ metadata:
   name: estore
 spec:
   imageName: ghcr.io/th2-net/th2-estore
-  imageVersion: 5.0.0-dev-version-5-3392757853-f953162
+  imageVersion: 5.0.0-dev-version-5-3702701076-459e10e
   # bookName: testbooks
   extendedSettings:
     envVariables:

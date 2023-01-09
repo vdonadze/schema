@@ -13,7 +13,7 @@ spec:
     name: arfq01dc30
     dictionaries:
       MAIN: "${dictionary_link:fix50-trm2}"
-#      LEVEL1: "${dictionary_link:fix50-generic}"
+      LEVEL1: "${dictionary_link:fix50-generic}"
     settings:
       autoStartable: true
       expectedTimeOfStarting: 2000
@@ -87,7 +87,7 @@ spec:
         - raw
         - first
         - subscribe
-        - store
+        # - store
       - name: fix_to_send
         attributes:
         - send
@@ -99,7 +99,7 @@ spec:
         - second
         - raw
         - publish
-        - store
+        # - store
         filters:
         - metadata:
           - expectedValue: arfq02dc30

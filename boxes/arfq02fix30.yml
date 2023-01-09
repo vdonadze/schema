@@ -7,14 +7,14 @@ spec:
   imageVersion: 4.0.0-th2-3987-dictionaries-custom-config-2789937242
 #  versionRange: '4.+'
   type: th2-conn
-#  bookName: testbooks
+  # bookName: testbooks
   customConfig:
     session-alias: arfq02fix30
     workspace: /home/sailfish/workspace
     type: th2_service:FIX_Client
     name: arfq02fix30
     dictionaries:
-      MAIN: "${dictionary_link:fix50-trm2}"
+      MAIN: "${dictionary_link:fix50-generic}"
     settings:
       autoStartable: true
       expectedTimeOfStarting: 2000
@@ -69,6 +69,7 @@ spec:
       socketConnectPort: 15551
       useDefaultApplVerID: true
   extendedSettings:
+    replicas: 0
     envVariables:
       JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError
     resources:
@@ -87,12 +88,12 @@ spec:
         attributes:
         - first
         - raw
-        - store
       - name: fix_to_send
         attributes:
         - send
-        - raw
-        - subscribe
+        # - raw
+        - event
+        - group
         linkTo:
           - box: codec-fix
             pin: out_codec_encode
@@ -100,9 +101,11 @@ spec:
       - name: out_raw
         attributes:
         - second
-        - raw
+        # - raw
         - publish
         - store
+        # - event
+        # - group
         filters:
         - metadata:
           - expectedValue: arfq02fix30

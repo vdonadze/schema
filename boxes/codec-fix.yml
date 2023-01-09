@@ -12,6 +12,7 @@ spec:
     dictionaries:
       MAIN: "${dictionary_link:fix50-trm2}"
   extendedSettings:
+    replicas: -1
     resources:
       limits:
         cpu: 101m
@@ -30,8 +31,6 @@ spec:
         - parsed
         - subscribe
         linkTo:
-          - box: act
-            pin: to_send_fix-client
           - box: act
             pin: to_send_arfq02fix30
       - name: in_codec_decode

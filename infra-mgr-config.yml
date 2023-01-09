@@ -3,41 +3,39 @@ metadata:
   name: infra-mgr-config
 spec:
   k8s-propagation: rule
-  # cradle:
-  #   keyspace: cassandratest
-  #   host: th2-test3-cassandra01
-  #   port: 9042
-  #   dataCenter: DC1
-  #   username: th2
-  #   useCustomPassword: true
+  bookConfig:
+    defaultBook: "smoke"
   cradle:
-    keyspace: checkdata
-    host: srt-cassandra01
-    port: 9042
-    dataCenter: srt
+    keyspace: smoke
+    host: th2-schema-test
+    port: 31245
+    dataCenter: datacenter1
     username: cassandra
     useCustomPassword: true
-#  values for k8s-propagation property:
-#
-#    off  - No synchronization will be done
-#    deny - No synchronization will be done and associated namespace will be removed from kubernetes
-#    sync - Synchronizes repository changes with kubernetes
-#    rule - Synchronizes repository changes with kubernetes and watches resource changes in kubernetes and 
-#           brings them back to repository state
-#
-#  cradle:
-#    keyspace: checkdata
-  bookConfig:
-    defaultBook: "batch"
+  # cradle:
+  #   keyspace: regression
+  #   host: srt-cassandra01
+  #   port: 9042
+  #   dataCenter: srt
+  #   username: cassandra
+  #   useCustomPassword: true
+
   th2BoxConfig:
     mqRouter:
-      connectionTimeout: -1
-      connectionCloseTimeout: 10000
-      maxRecoveryAttempts: 5
-    grpcRouter:
-      workers: 5
-    cradleManager:
-      connectionCloseTimeout: 1000
+      # maxRecoveryAttempts: 6
+      # minConnectionRecoveryTimeout: 6
+      # prefetchCount: 6
+      # maxConnectionRecoveryTimeout: 6
+      # connectionTimeout: 6
+      # connectionCloseTimeout: 6
+    # grpcRouter:
+      # workers: 1
+      # maxRecoveryAttempts: 16
+
+    # cradleManager:
+    #   connectionCloseTimeout: 66
+    #   pagesize: 6666
+
     logging:
       logLevelTh2: TRACE
       logLevelRoot: DEBUG
