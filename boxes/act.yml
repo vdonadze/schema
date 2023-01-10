@@ -2,21 +2,12 @@ apiVersion: th2.exactpro.com/v2
 kind: Th2Box
 metadata:
   name: act
-  # annotations:
-  #   k8s.v1.cni.cncf.io/networks: macvlan-main
-    # key: annotationforactfix
-    # key2: secondannotation
 spec:
   imageName: ghcr.io/th2-net/th2-act-template-j
   imageVersion: 4.0.0-th2-2150-books-pages-2648415631
-#   # versionRange: '4.0.0-th2-'
-# #  imageVersion: 3.3.1
-# #  versionRange: '3.+'
   type: th2-act
   disabled: false
-  # bookName: m_52
   extendedSettings:
-    replicas: qqq
     nodeSelector:
       kubernetes.io/hostname: de-th2-schema-test
       beta.kubernetes.io/arch: amd64
