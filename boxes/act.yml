@@ -11,7 +11,7 @@ spec:
     nodeSelector:
       kubernetes.io/hostname: de-th2-schema-test
       beta.kubernetes.io/arch: amd64
-      beta.kubernetes.io/osdasdada: linuxxxxdasdadada
+#      beta.kubernetes.io/osdasdada: linuxxxxdasdadada
     #      beta.kubernetes.io/os: linuxxxx
     resources:
       limits:
@@ -26,9 +26,6 @@ spec:
         - name: grpc
           exposedPort: 31228
           containerPort: 8080
-    # chartCfg:
-    #     path: example
-    #     ref: exp
   pins:
     mq:
       subscribers:
@@ -38,7 +35,6 @@ spec:
         - oe
         - subscribe
         - parsed
-        # - event
         linkTo:
           - box: codec-fix
             pin: out_codec_decode
@@ -98,17 +94,3 @@ spec:
         - com.exactpro.th2.act.actServer
         - com.exactpro.th2.check1.Check1Service
         - com.exactpro.th2.check1.grpc.Check1Service
-  # mqRouter:
-  #     maxRecoveryAttempts: 7
-  #     minConnectionRecoveryTimeout: 7
-      # prefetchCount: 7
-      # maxConnectionRecoveryTimeout: 7
-      # connectionTimeout: 7
-      # connectionCloseTimeout: 7
-  
-  # grpcRouter:
-    # workers: 7
-
-  # cradleManager:
-  #   connectionCloseTimeout: 7777
-    # pagesize: 7777
