@@ -44,7 +44,7 @@ spec:
         - first
         - oe
         - subscribe
-        - test
+        - test576587
       publishers:
       - name: to_send_fix-client
         attributes:
