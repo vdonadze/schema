@@ -10,7 +10,7 @@ spec:
   extendedSettings:
     nodeSelector:
       kubernetes.io/hostname: de-th2-schema-test
-      beta.kubernetes.io/arch: amd64
+#      beta.kubernetes.io/arch: amd64
 #      beta.kubernetes.io/osdasdada: linuxxxxdasdadada
     #      beta.kubernetes.io/os: linuxxxx
     resources:
