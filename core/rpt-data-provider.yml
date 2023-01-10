@@ -29,7 +29,7 @@ spec:
       enabled: true
       nodePort:
       - name: grpc
-        exposedPort: 31744
+        exposedPort: 31241
         containerPort: 8080
   pins:
     mq:

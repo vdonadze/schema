@@ -23,7 +23,7 @@ spec:
       enabled: false
       nodePort:
         - name: grpc
-          exposedPort: 31729
+          exposedPort: 31222
           containerPort: 8080
     # chartCfg:
     #     path: example
