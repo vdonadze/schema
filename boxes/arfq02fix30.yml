@@ -101,11 +101,9 @@ spec:
       - name: out_raw
         attributes:
         - second
-        # - raw
-        - publish
+        - raw1
+        - raw2
         - store
-        # - event
-        # - group
         filters:
         - metadata:
           - expectedValue: arfq02fix30
