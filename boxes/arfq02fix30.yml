@@ -5,7 +5,7 @@ metadata:
 spec:
   imageName: ghcr.io/th2-net/th2-conn-fix
   imageVersion: 4.0.0-th2-3987-dictionaries-custom-config-2789937242
-#  versionRange: '4.+'
+  #  versionRange: '4.+'
   type: th2-conn
   # bookName: testbooks
   customConfig:
@@ -69,7 +69,7 @@ spec:
       socketConnectPort: 15551
       useDefaultApplVerID: true
   extendedSettings:
-    replicas: 0
+
     envVariables:
       JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError
     resources:
@@ -82,30 +82,30 @@ spec:
     service:
       enabled: false
   pins:
-    mq:
-      subscribers:
+  mq:
+    subscribers:
       - name: in_raw
         attributes:
-        - first
-        - raw
+          - first
+          - raw
       - name: fix_to_send
         attributes:
-        - send
-        # - raw
-        - event
-        - group
+          - send
+          - raw
+        # - event
+        # - group
         linkTo:
           - box: codec-fix
             pin: out_codec_encode
-      publishers:
+    publishers:
       - name: out_raw
         attributes:
-        - second
-        - raw1
-        - raw2
-        - store
+          - second
+          - raw1
+          - raw2
+          - store
         filters:
-        - metadata:
-          - expectedValue: arfq02fix30
-            fieldName: session_alias
-            operation: EQUAL
+          - metadata:
+              - expectedValue: arfq02fix30
+                fieldName: session_alias
+                operation: EQUAL

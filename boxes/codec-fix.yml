@@ -12,7 +12,7 @@ spec:
     dictionaries:
       MAIN: "${dictionary_link:fix50-trm2}"
   extendedSettings:
-    replicas: -1
+    # replicas: -1
     resources:
       limits:
         cpu: 101m
@@ -25,56 +25,58 @@ spec:
   pins:
     mq:
       subscribers:
-      - name: in_codec_encode
-        attributes:
-        - encoder_in
-        - parsed
-        - subscribe
-        linkTo:
-          - box: act
-            pin: to_send_arfq02fix30
-      - name: in_codec_decode
-        attributes:
-        - decoder_in
-        - raw
-        - subscribe
-        linkTo:
-          - box: arfq02fix30
-            pin: out_raw
-      - name: in_codec_general_encode
-        attributes:
-        - general_encoder_in
-        - parsed
-        - subscribe
-      - name: in_codec_general_decode
-        attributes:
-        - general_decoder_in
-        - raw
-        - subscribe
-        linkTo:
-          - box: rpt-data-provider
-            pin: to_codec_codec-fix
-          - box: cradle-viewer
-            pin: to_codec
+        - name: in_codec_encode
+          attributes:
+            - encoder_in
+            - parsed
+            - subscribe
+          linkTo:
+            - box: act
+              pin: to_send_arfq02fix30
+        - name: in_codec_decode
+          attributes:
+            - decoder_in
+            - raw
+            - subscribe
+          linkTo:
+            - box: arfq02fix30
+              pin: out_raw
+        - name: in_codec_general_encode
+          attributes:
+            - general_encoder_in
+            - parsed
+            - subscribe
+        - name: in_codec_general_decode
+          attributes:
+            - general_decoder_in
+            - raw
+            - subscribe
+          linkTo:
+            - box: rpt-data-provider
+              pin: to_codec_codec-fix
+            - box: cradle-viewer
+              pin: to_codec
       publishers:
-      - name: out_codec_general_decode
-        attributes:
-        - general_decoder_out
-        - parsed
-        - publish
-      - name: out_codec_general_encode
-        attributes:
-        - general_encoder_out
-        - raw
-        - publish
-      - name: out_codec_decode
-        attributes:
-        - decoder_out
-        - parsed
-        - publish
-      - name: out_codec_encode
-        attributes:
-        - encoder_out
-        - raw
-        - publish
-        # filters: []
+        - name: out_codec_general_decode
+          attributes:
+            - general_decoder_out
+            - parsed
+            - publish
+        - name: out_codec_general_encode
+          attributes:
+            - general_encoder_out
+            - raw
+            - publish
+        - name: out_codec_decode
+          attributes:
+            - decoder_out
+            - parsed
+            - publish
+        - name: out_codec_encode
+          attributes:
+            - encoder_out
+            - raw
+            # - event
+            - publish
+          # filters: []
+
