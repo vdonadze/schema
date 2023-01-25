@@ -93,8 +93,8 @@ spec:
                 - fieldName: method
                   expectedValue: POST
                   operation: test
-      - name: server
-        serviceClasses:
-        - com.exactpro.th2.act.actServer
-        - com.exactpro.th2.check1.Check1Service
-        - com.exactpro.th2.check1.grpc.Check1Service
+        - name: server
+          serviceClasses:
+          - com.exactpro.th2.act.actServer
+          - com.exactpro.th2.check1.Check1Service
+          - com.exactpro.th2.check1.grpc.Check1Service
