@@ -62,7 +62,6 @@ spec:
         - parsed
         - event
         - publish
-        - test12345
         filters:
         - metadata:
           - expectedValue: fix-server
