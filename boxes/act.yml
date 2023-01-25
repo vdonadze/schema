@@ -92,7 +92,7 @@ spec:
             - properties:
                 - fieldName: method
                   expectedValue: POST
-                  operation: test
+                  operation: EQUAL
         - name: server
           serviceClasses:
           - com.exactpro.th2.act.actServer
