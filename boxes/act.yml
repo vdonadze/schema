@@ -80,19 +80,19 @@ spec:
     grpc:
       client:
         - name: to_check1
-            serviceClass: com.exactpro.th2.check1.grpc.Check1Service
-            linkTo:
-              - box: check1
-                pin: server
-            filters:
-              - metadata:
-                  - fieldName: protocol
-                    expectedValue: HTTP
-                    operation: EQUAL
-              - properties:
-                  - fieldName: method
-                    expectedValue: POST
-                    operation: test
+          serviceClass: com.exactpro.th2.check1.grpc.Check1Service
+          linkTo:
+            - box: check1
+              pin: server
+          filters:
+            - metadata:
+                - fieldName: protocol
+                  expectedValue: HTTP
+                  operation: EQUAL
+            - properties:
+                - fieldName: method
+                  expectedValue: POST
+                  operation: test
       - name: server
         serviceClasses:
         - com.exactpro.th2.act.actServer
