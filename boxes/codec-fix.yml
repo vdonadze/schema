@@ -1,82 +1,74 @@
-apiVersion: th2.exactpro.com/v2
+apiVersion: th2.exactpro.com/v1
 kind: Th2Box
 metadata:
   name: codec-fix
 spec:
-  imageName: ghcr.io/th2-net/th2-codec-fix
-  imageVersion: 4.0.0-th2-3987-dictionaries-custom-config-2789603706
+  image-name: ghcr.io/th2-net/th2-codec-fix
+  image-version: 3.10.4
   type: th2-codec
-  # bookName: m_52
-  customConfig:
+  custom-config:
+    outgoingEventBatchBuildTime: 1
+    maxOutgoingEventBatchSize: 99
+    numOfEventBatchCollectorWorkers: 1
     codecClassName: com.exactpro.sf.externalapi.codec.impl.ExternalFixCodecFactory
-    dictionaries:
-      MAIN: "${dictionary_link:fix50-trm2}"
-  extendedSettings:
-    # replicas: -1
-    resources:
-      limits:
-        cpu: 101m
-        memory: 400Mi
-      requests:
-        cpu: 31m
-        memory: 100Mi
+  pins:
+  - name: in_codec_encode
+    connection-type: mq
+    attributes:
+    - encoder_in
+    - parsed
+    - subscribe
+  - name: out_codec_encode
+    connection-type: mq
+    attributes:
+    - encoder_out
+    - raw
+    - publish
+  - name: in_codec_decode
+    connection-type: mq
+    attributes:
+    - decoder_in
+    - raw
+    - subscribe
+  - name: out_codec_decode
+    connection-type: mq
+    attributes:
+    - decoder_out
+    - parsed
+    - publish
+  - name: in_codec_general_encode
+    connection-type: mq
+    attributes:
+    - general_encoder_in
+    - parsed
+    - subscribe
+  - name: out_codec_general_encode
+    connection-type: mq
+    attributes:
+    - general_encoder_out
+    - raw
+    - publish
+  - name: in_codec_general_decode
+    connection-type: mq
+    attributes:
+    - general_decoder_in
+    - raw
+    - subscribe
+  - name: out_codec_general_decode
+    connection-type: mq
+    attributes:
+    - general_decoder_out
+    - parsed
+    - publish
+  extended-settings:
     service:
       enabled: false
-  pins:
-    mq:
-      subscribers:
-        - name: in_codec_encode
-          attributes:
-            - encoder_in
-            - parsed
-            - subscribe
-          linkTo:
-            - box: act
-              pin: to_send_arfq02fix30
-        - name: in_codec_decode
-          attributes:
-            - decoder_in
-            - raw
-            - subscribe
-          linkTo:
-            - box: arfq02fix30
-              pin: out_raw
-        - name: in_codec_general_encode
-          attributes:
-            - general_encoder_in
-            - parsed
-            - subscribe
-        - name: in_codec_general_decode
-          attributes:
-            - general_decoder_in
-            - raw
-            - subscribe
-          linkTo:
-            - box: rpt-data-provider
-              pin: to_codec_codec-fix
-            - box: cradle-viewer
-              pin: to_codec
-      publishers:
-        - name: out_codec_general_decode
-          attributes:
-            - general_decoder_out
-            - parsed
-            - publish
-        - name: out_codec_general_encode
-          attributes:
-            - general_encoder_out
-            - raw
-            - publish
-        - name: out_codec_decode
-          attributes:
-            - decoder_out
-            - parsed
-            - publish
-        - name: out_codec_encode
-          attributes:
-            - encoder_out
-            - raw
-            # - event
-            - publish
-          # filters: []
-
+    envVariables:
+      JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:MaxRAMPercentage=85
+    resources:
+      limits:
+        memory: 250Mi
+        cpu: 250m
+      requests:
+        memory: 100Mi
+        cpu: 20m
