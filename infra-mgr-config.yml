@@ -4,7 +4,7 @@ metadata:
 spec:
   cradle:
     keyspace: "testsmoke"
-  k8s-propagation: deny
+  k8s-propagation: rule
   bookConfig:
     defaultBook: "defaultBook-schema"
   th2BoxConfig:
