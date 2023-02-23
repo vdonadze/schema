@@ -36,6 +36,7 @@ spec:
         - subscribe
         - parsed
         - trigger
+        - raw
         linkTo:
           - box: codec-fix
             pin: out_codec_decode
