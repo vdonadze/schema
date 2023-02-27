@@ -20,12 +20,12 @@ spec:
       requests:
         cpu: 70m
         memory: 100Mi
-    service:
-      enabled: false
-      nodePort:
-        - name: grpc
-          exposedPort: 31132
-          containerPort: 8080
+#    service:
+#      enabled: false
+#      nodePort:
+#        - name: grpc
+#          exposedPort: 31132
+#          containerPort: 8080
   pins:
     mq:
       subscribers:
