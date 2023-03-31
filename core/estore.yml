@@ -5,7 +5,6 @@ metadata:
 spec:
   imageName: ghcr.io/th2-net/th2-estore
   imageVersion: 5.0.0-dev-version-5-3392757853-f953162
-  bookName: estore_book
   pins:
     mq:
       subscribers:
@@ -15,7 +14,6 @@ spec:
             - oe
             - subscribe
             - parsed
-            - raw
           linkTo:
             - box: codec-fix
               pin: out_codec_decode
