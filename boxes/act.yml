@@ -36,10 +36,11 @@ spec:
         - subscribe
         - parsed
         - trigger
-        - raw
         linkTo:
           - box: codec-fix
             pin: out_codec_decode
+          - box: mstore
+            pin: to_act_fix
       - name: to_send_codec
         attributes:
         - parsed

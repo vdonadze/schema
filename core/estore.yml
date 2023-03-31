@@ -6,6 +6,29 @@ spec:
   imageName: ghcr.io/th2-net/th2-estore
   imageVersion: 5.0.0-dev-version-5-3392757853-f953162
   bookName: estore_book
+  pins:
+    mq:
+      subscribers:
+        - name: estore_custom_pin
+          attributes:
+            - first
+            - oe
+            - subscribe
+            - parsed
+            - raw
+          linkTo:
+            - box: codec-fix
+              pin: out_codec_decode
+      publishers:
+        - name: to_mstore
+          attributes:
+            - parsed
+            - publish
+          filters:
+            - metadata:
+                - expectedValue: fix-client
+                  fieldName: session_alias
+                  operation: EQUAL
   extendedSettings:
     envVariables:
       JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000
