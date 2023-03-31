@@ -4,7 +4,7 @@ metadata:
   name: util
 spec:
   imageName: ghcr.io/th2-net/th2-util
-  imageVersion: 3.2.0
+  imageVersion: 3.2.1
   versionRange: 3.+
   type: th2-util
   extendedSettings:
