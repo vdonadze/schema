@@ -4,42 +4,17 @@ metadata:
   name: mstore
 spec:
   imageName: ghcr.io/th2-net/th2-mstore
-  imageVersion: 5.0.0-dev-version-5-3367909079-d1faa56
-  pins:
-    mq:
-      subscribers:
-        - name: mstore_custom_pin
-          attributes:
-            - parsed
-          linkTo:
-            - box: estore
-              pin: to_mstore
-        - name: to_send_codec
-          attributes:
-            - parsed
-            - first
-            - oe
-            - subscribe
-      publishers:
-        - name: to_act_fix
-          attributes:
-            - parsed
-            - publish
-          filters:
-            - metadata:
-                - expectedValue: fix-client
-                  fieldName: session_alias
-                  operation: EQUAL
+  imageVersion: 5.0.0-dev-version-5-4375917515-3aba37a #5.0.0-dev-version-5-4301443649-995d6b6 #5.0.0-dev-version-5-4282356799-22dca98 #5.0.0-dev-version-5-4301443649-995d6b6
   extendedSettings:
     envVariables:
       JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000
         milliseconds"
     resources:
       limits:
-        cpu: 300m
-        memory: 300Mi
+        cpu: 1000m
+        memory: 1000Mi
       requests:
-        cpu: 20m
-        memory: 100Mi
+        cpu: 200m
+        memory: 200Mi
     service:
       enabled: false

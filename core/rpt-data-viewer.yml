@@ -4,16 +4,16 @@ metadata:
   name: rpt-data-viewer
 spec:
   imageName: ghcr.io/th2-net/th2-rpt-viewer
-  imageVersion: 5.0.25-books-pages-5-3512403717
+  imageVersion: 5.1.0
   type: th2-rpt-viewer
   extendedSettings:
     resources:
       limits:
-        cpu: 50m
-        memory: 50Mi
+        cpu: 500m
+        memory: 500Mi
       requests:
-        cpu: 50m
-        memory: 50Mi
+        cpu: 100m
+        memory: 100Mi
     service:
       enabled: true
       clusterIP:

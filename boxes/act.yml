@@ -3,29 +3,10 @@ kind: Th2Box
 metadata:
   name: act
 spec:
-  imageName: ghcr.io/th2-net/th2-act-template-j
-  imageVersion: 4.0.0-th2-2150-books-pages-2648415631
-  # versionRange: '4.0.0-th2-'
-#  imageVersion: 3.3.1
-#  versionRange: '3.+'
-  type: th2-act
   disabled: false
-  extendedSettings:
-    nodeSelector:
-      kubernetes.io/hostname: de-th2-schema-test
-    resources:
-      limits:
-        cpu: 200m
-        memory: 205Mi
-      requests:
-        cpu: 70m
-        memory: 100Mi
-    service:
-      enabled: false
-      nodePort:
-        - name: grpc
-          exposedPort: 31132
-          containerPort: 8080
+  imageName: ghcr.io/th2-net/th2-act-template-j
+  imageVersion: 4.0.0-th2-2150-books-pages-3757835788-8df00f5
+  type: th2-act
   pins:
     mq:
       subscribers:
@@ -33,49 +14,14 @@ spec:
         attributes:
         - first
         - oe
-        - subscribe
         - parsed
-        - trigger
         linkTo:
           - box: codec-fix
             pin: out_codec_decode
-          - box: mstore
-            pin: to_act_fix
-      - name: to_send_codec
-        attributes:
-        - parsed
-        - first
-        - oe
-        - subscribe
       publishers:
-      - name: to_send_fix-client
+      - name: to_send
         attributes:
         - parsed
-        - publish
-        filters:
-        - metadata:
-          - expectedValue: fix-client
-            fieldName: session_alias
-            operation: EQUAL
-      - name: to_send_fix-server
-        attributes:
-        - parsed
-        - publish
-        - raw
-        filters:
-        - metadata:
-          - expectedValue: fix-server
-            fieldName: session_alias
-            operation: EQUAL
-      - name: to_send_arfq02fix30
-        attributes:
-        - parsed
-        - publish
-        filters:
-        - metadata:
-          - expectedValue: arfq02fix30
-            fieldName: session_alias
-            operation: EQUAL
     grpc:
       client:
       - name: to_check1
@@ -83,17 +29,25 @@ spec:
         linkTo:
           - box: check1
             pin: server
-        filters:
-          - properties:
-              - fieldName: method
-                expectedValue: POST
-                operation: EQUAL
+      server:
       - name: server
         serviceClasses:
-        - com.exactpro.th2.act.actServer
-        - com.exactpro.th2.check1.Check1Service
-        - com.exactpro.th2.check1.grpc.Check1Service
+        - com.exactpro.th2.act.grpc.ActService
   mqRouter:
-    connectionCloseTimeout: 15001
+    connectionCloseTimeout: 15000
   grpcRouter:
     workers: 6
+  extendedSettings:
+    service:
+      enabled: true
+      nodePort:
+        - name: grpc
+          exposedPort: 31620
+          containerPort: 8080
+    resources:
+      limits:
+        cpu: 500m
+        memory: 500Mi
+      requests:
+        cpu: 200m
+        memory: 201Mi

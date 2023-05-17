@@ -1,0 +1,188 @@
+apiVersion: th2.exactpro.com/v2
+kind: Th2Job
+metadata:
+  name: loader-fix-client
+spec:
+  imageName: nexus.exactpro.com:18000/th2-loader
+  imageVersion: 0.0.1-test-book.48
+  type: th2-job
+  customConfig:
+    "main.yaml":
+      ActorGroups:
+        - LoadPercent: 0
+          Actors: /home/app/configs/rpc.yaml
+          Range: 1
+        - LoadPercent: 1
+          Actors: /home/app/configs/sender.yaml
+          Range: 1-2
+        - LoadPercent: 0
+          Actors: /home/app/configs/receiver.yaml
+          Range: 1-2
+    "sender.yaml":
+      - Type: SENDER
+        Options:
+          Symbol: ABC
+          PlaceholderSize: 115
+          Session:
+            Type: FIXClient
+            Options:
+              HeartbeatInterval: 60
+              SleepAfterLogon: 0
+              Connector:
+                Type: TCPClient
+                Options:
+                  # AddressList: [loader-fix-server:7777]
+                  AddressList: [127.0.0.1:7777]
+              Traffic:
+                Type: "File"
+                Options:
+                  Disabled: true
+                  In:
+                    Format: /home/pv/test1.in.$index.dat
+                  Out:
+                    Format: /home/pv/test1.out.$index.dat
+
+              # Traffic:
+              #   Type: "th2custom"
+              #   Options:
+              #     Disabled: false
+              #     GroupByDirection: false
+              #     ConfigurationDir: "/var/th2/config"
+              #     SessionAlias: "loop-alias1"
+              #     Protocol: "fix"
+              #     BookName: store_perf_test
+              #     Group: loop-test-group1
+              #     BatchSizeBytes: 262144 # 256KB
+              #     FlushMillis: 10000 # 2s
+      - Type: SENDER
+        Options:
+          Symbol: ABC
+          PlaceholderSize: 115
+          Session:
+            Type: FIXClient
+            Options:
+              HeartbeatInterval: 60
+              SleepAfterLogon: 0
+              Connector:
+                Type: TCPClient
+                Options:
+                  # AddressList: [loader-fix-server:7778]
+                  AddressList: [127.0.0.1:7778]
+              Traffic:
+                Type: "File"
+                Options:
+                  Disabled: true
+                  In:
+                    Format: /home/pv/test2.in.$index.dat
+                  Out:
+                    Format: /home/pv/test2.out.$index.dat
+
+              # Traffic:
+              #   Type: "th2custom"
+              #   Options:
+              #     Disabled: false
+              #     GroupByDirection: false
+              #     ConfigurationDir: "/var/th2/config"
+              #     SessionAlias: "loop-alias2"
+              #     Protocol: "fix"
+              #     BookName: store_perf_test
+              #     Group: loop-test-group1
+              #     BatchSizeBytes: 262144 # 256KB
+              #     FlushMillis: 10000 # 2s
+      - Type: SENDER
+        Options:
+          Symbol: ABC
+          PlaceholderSize: 115
+          Session:
+            Type: FIXClient
+            Options:
+              HeartbeatInterval: 60
+              SleepAfterLogon: 0
+              Connector:
+                Type: TCPClient
+                Options:
+                  # AddressList: [loader-fix-server:7779]
+                  AddressList: [127.0.0.1:7779]
+              Traffic:
+                Type: "File"
+                Options:
+                  Disabled: true
+                  In:
+                    Format: /home/pv/test3.in.$index.dat
+                  Out:
+                    Format: /home/pv/test3.out.$index.dat
+
+              # Traffic:
+              #   Type: "th2custom"
+              #   Options:
+              #     Disabled: false
+              #     GroupByDirection: false
+              #     ConfigurationDir: "/var/th2/config"
+              #     SessionAlias: "loop-alias3"
+              #     Protocol: "fix"
+              #     BookName: store_perf_test
+              #     Group: loop-test-group1
+              #     BatchSizeBytes: 262144 # 256KB
+              #     FlushMillis: 10000 # 2s
+    "receiver.yaml":
+      - Type: RECEIVER
+        Options:
+          Session:
+            Type: FIXServer
+            Options:
+              HeartbeatInterval: 60
+              Connector:
+                Type: TCPServer
+                Options:
+                  Address: 127.0.0.1:7777
+      - Type: RECEIVER
+        Options:
+          Session:
+            Type: FIXServer
+            Options:
+              HeartbeatInterval: 60
+              Connector:
+                Type: TCPServer
+                Options:
+                  Address: 127.0.0.1:7778
+      - Type: RECEIVER
+        Options:
+          Session:
+            Type: FIXServer
+            Options:
+              HeartbeatInterval: 60
+              Connector:
+                Type: TCPServer
+                Options:
+                  Address: 127.0.0.1:7779
+  pins:
+    mq:
+      publishers:
+        - name: mstore
+          attributes:
+            - publish
+            - store
+            - transport-group
+  extendedSettings:
+    nodeSelector:
+      "kubernetes.io/hostname": kos-perftest-kuber-node01
+    mounting:
+      - path: "/home/pv"
+        pvcName: component-client
+    resources:
+      limits:
+        cpu: 6000m
+        memory: 600Mi
+      requests:
+        cpu: 200m
+        memory: 201Mi
+    service:
+      enabled: true
+      nodePort:
+        - name: grpc
+          exposedPort: 30778
+          containerPort: 8081
+      ingress:
+        urlPaths:
+          - /loader/
+

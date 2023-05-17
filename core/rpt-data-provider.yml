@@ -4,7 +4,7 @@ metadata:
   name: rpt-data-provider
 spec:
   imageName: ghcr.io/th2-net/th2-rpt-data-provider
-  imageVersion: 5.4.18-master_migration_to_cradle_rebase-3368544789
+  imageVersion: 5.6.0-dev-version-5.6-4301513548-5ad84eb #5.6.0-th2-4633-4184438677 #5.6.0-TH2-4567-3765874479 #5.6.0-TH2-4567-3749929387  #5.6.0-TH2-4567-3749929387 #5.6.0-TH2-4567-3756476550 
   type: th2-rpt-data-provider
   customConfig:
     hostname: localhost
@@ -14,23 +14,16 @@ spec:
     eventCacheSize: 100000
     messageCacheSize: 100000
     ioDispatcherThreadPoolSize: 1
-  extendedSettings:
-    envVariables:
-      JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000
-        milliseconds"
-    resources:
-      limits:
-        cpu: 600m
-        memory: 1001Mi
-      requests:
-        cpu: 20m
-        memory: 300Mi
-    service:
-      enabled: false
-      nodePort:
-      - name: grpc
-        exposedPort: 31645
-        containerPort: 8080
+  loggingConfig: |
+    name = CommonConfig
+    status = warn
+    appender.console.type = Console
+    appender.console.name = ConsoleLogger
+    appender.console.layout.type = PatternLayout
+    appender.console.layout.pattern = %d{dd MMM yyyy HH:mm:ss,SSS} %-6p [%-15t] %c - %m%n
+    rootLogger.level = WARN
+    # Root logger referring to console appender
+    rootLogger.appenderRef.stdout.ref = ConsoleLogger
   pins:
     mq:
       subscribers:
@@ -38,37 +31,36 @@ spec:
         attributes:
         - from_codec
         - parsed
-        - subscribe
       - name: from_codec_codec-fix
         attributes:
         - from_codec
         - parsed
-        - subscribe
-        - arfq01fix21
-        - arfq02fix30
-        - arfq02fix31
-        - arfq02dc30
         linkTo:
           - box: codec-fix
             pin: out_codec_general_decode
       publishers:
-      - name: to_codec_codec-fix
+      - name: to_codec-fix
         attributes:
         - to_codec
         - raw
-        - publish
-        - arfq01fix21
-        - arfq02fix30
-        - arfq02fix31
-        - arfq02dc30
-      - name: to_codec
-        attributes:
-        - to_codec
-        - raw
-        - publish
-        - csvtest1
-        - csvtest2
-        - csvtest3
-        - csvtest5
-        - csvtest6
-        - csvtest7
+        - fix-client1
+        - fix-demo-server1
+        - fix-client2
+        - fix-demo-server2
+        - default-message-producer-alias
+  extendedSettings:
+    envVariables:
+      JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000
+        milliseconds"
+    resources:
+      limits:
+        cpu: 1001m
+        memory: 2001Mi
+      requests:
+        cpu: 300m
+        memory: 300Mi
+    service:
+      enabled: true
+      clusterIP:
+        - name: other
+          containerPort: 8080
