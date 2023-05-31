@@ -164,8 +164,8 @@ spec:
             - store
             - transport-group
   extendedSettings:
-    nodeSelector:
-      "kubernetes.io/hostname": kos-perftest-kuber-node01
+#    nodeSelector:
+#      "kubernetes.io/hostname": kos-perftest-kuber-node01
     mounting:
       - path: "/home/pv"
         pvcName: component-client
