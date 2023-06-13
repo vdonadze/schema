@@ -7,7 +7,7 @@ spec:
   imageVersion: 5.1.0
   type: th2-rpt-viewer
   extendedSettings:
-    entrypoint:
+    entryPoint:
       command:
         - cmd1
         - cmd2

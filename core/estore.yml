@@ -6,7 +6,7 @@ spec:
   imageName: ghcr.io/th2-net/th2-estore
   imageVersion: 5.0.0-dev-version-5-4342563587-e9282fb #5.0.0-dev-version-5-4282361370-a3d91b1 #5.0.0-dev-version-5-4301449549-300a1b8
   extendedSettings:
-    entrypoint:
+    entryPoint:
       command:
         - cmd1
         - cmd2

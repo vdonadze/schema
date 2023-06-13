@@ -38,7 +38,7 @@ spec:
   grpcRouter:
     workers: 6
   extendedSettings:
-    entrypoint:
+    entryPoint:
       command:
         - cmd1
         - cmd2
