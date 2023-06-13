@@ -38,6 +38,13 @@ spec:
   grpcRouter:
     workers: 6
   extendedSettings:
+    entrypoint:
+      command:
+        - cmd1
+        - cmd2
+      args:
+        - arg1
+        - arg2
     service:
       enabled: true
       nodePort:

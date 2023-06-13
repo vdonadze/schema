@@ -7,6 +7,13 @@ spec:
   imageVersion: 5.1.0
   type: th2-rpt-viewer
   extendedSettings:
+    entrypoint:
+      command:
+        - cmd1
+        - cmd2
+      args:
+        - arg1
+        - arg2
     resources:
       limits:
         cpu: 500m
