@@ -8,6 +8,7 @@ spec:
   imageVersion: 4.0.0-th2-2150-books-pages-3757835788-8df00f5
   type: th2-act
   customConfig:
+    dictionaryAlias: "${dictionary_link:lme-oe-dictionary}"
     maxBatchSize: 100
     maxFlushTime: 50
     publishSentEvents: true
