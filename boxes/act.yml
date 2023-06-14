@@ -7,6 +7,62 @@ spec:
   imageName: ghcr.io/th2-net/th2-act-template-j
   imageVersion: 4.0.0-th2-2150-books-pages-3757835788-8df00f5
   type: th2-act
+  customConfig:
+    maxBatchSize: 100
+    maxFlushTime: 50
+    publishSentEvents: true
+    publishConnectEvents: true
+    sessions:
+      - sessionAlias: bin_zsobbt0001_1
+        handler:
+          host: 212.161.85.242
+          # host: 127.0.0.1
+          port: 32001
+          compID: ZSOBBT0001
+          testRequestID: ""
+          heartbeatInterval: 10
+          intervalsBeforeTestRequest: 3
+          intervalsBeforeReconnect: 6
+          reconnectDelay: 5
+          autoReconnect: true
+          passwordKeyEncryptAlgorithm: RSA
+          passwordEncryptAlgorithm: RSA/ECB/OAEPWithSHA-1AndMGF1Padding
+          loadSequencesFromCradle: true
+          # sessionStartTime: "23:45:00"
+          # sessionStartTime: "00:00:01"
+          # sessionStartTime: "10:02:00"
+          # # sessionEndTime: "23:59:59"
+          # sessionEndTime: "10:01:00"
+          sessionStartTime: "22:45:00"
+          sessionEndTime: "22:44:00"
+          resetStateAfterServerReset: true
+          specVersion: "1.2"
+        mangler:
+          dictionaryAlias: "${dictionary_link:lme-oe-dictionary}"
+          baseRules: [ ]
+          strictRules:
+            - name: test
+              if-contains: [ ]
+              if-contains-binary:
+                - i8: 12
+                  at-offset: 3
+              then:
+                - remove:
+                    fieldName: "MarketMaker"
+                    value:
+                      fieldName: "MarketMaker"
+                      str: "A"
+                - add:
+                    fieldName: "DecisionMaker"
+                    i64: 2141
+                - set:
+                    fieldName: "AccountType"
+                    value:
+                      fieldName: "AccountType"
+                      i8: 24
+                  value:
+                    fieldName: "AccountType"
+                    i8: 24
   pins:
     mq:
       subscribers:
