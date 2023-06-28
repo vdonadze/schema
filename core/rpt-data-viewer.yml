@@ -7,13 +7,6 @@ spec:
   imageVersion: 5.1.0
   type: th2-rpt-viewer
   extendedSettings:
-    entryPoint:
-      command:
-        - cmd1
-        - cmd2
-      args:
-        - arg1
-        - arg2
     resources:
       limits:
         cpu: 500m
@@ -26,5 +19,4 @@ spec:
       clusterIP:
       - name: gui
         containerPort: 8080
-        port: 8080
 
