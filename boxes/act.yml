@@ -88,11 +88,6 @@ spec:
               - fieldName: method
                 expectedValue: POST
                 operation: EQUAL
-      - name: server
-        serviceClasses:
-        - com.exactpro.th2.act.actServer
-        - com.exactpro.th2.check1.Check1Service
-        - com.exactpro.th2.check1.grpc.Check1Service
   mqRouter:
     connectionCloseTimeout: 15001
   grpcRouter:

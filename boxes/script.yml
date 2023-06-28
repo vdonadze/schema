@@ -33,10 +33,6 @@ spec:
         - publish
         - store
         - to_mstore
-      - name: msg_raw
-        linkTo:
-        - box: sim
-          pin: server
     grpc:
       client:
       - name: to_act
