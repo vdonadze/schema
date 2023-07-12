@@ -5,6 +5,17 @@ metadata:
 spec:
   imageName: ghcr.io/th2-net/th2-estore
   imageVersion: 5.0.0-dev-version-5-4342563587-e9282fb #5.0.0-dev-version-5-4282361370-a3d91b1 #5.0.0-dev-version-5-4301449549-300a1b8
+  pins:
+    mq:
+      subscribers:
+        - name: custom_store_pin
+          attributes:
+            - first
+            - oe
+            - parsed
+          linkTo:
+            - box: codec-fix
+              pin: out_codec_decode
   extendedSettings:
     envVariables:
       JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000
