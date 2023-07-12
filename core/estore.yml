@@ -8,14 +8,14 @@ spec:
   pins:
     mq:
       subscribers:
-#        - name: custom_store_pin
-#          attributes:
-#            - first
-#            - oe
-#            - parsed
-#          linkTo:
-#            - box: codec-fix
-#              pin: out_codec_decode
+        - name: custom_store_pin
+          attributes:
+            - first
+            - oe
+            - parsed
+          linkTo:
+            - box: codec-fix
+              pin: out_codec_decode
   extendedSettings:
     envVariables:
       JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000
