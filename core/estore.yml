@@ -3,29 +3,49 @@ kind: Th2Estore
 metadata:
   name: estore
 spec:
+  disabled: false
   imageName: ghcr.io/th2-net/th2-estore
-  imageVersion: 5.0.0-dev-version-5-4342563587-e9282fb #5.0.0-dev-version-5-4282361370-a3d91b1 #5.0.0-dev-version-5-4301449549-300a1b8
-#  pins:
-#    mq:
-#      subscribers:
-#        - name: custom_store_pin
-#          attributes:
-#            - first
-#            - oe
-#            - parsed
-#          linkTo:
-#            - box: codec-fix
-#              pin: out_codec_decode
+  imageVersion: 5.0.0-dev-version-5-4891158135-2fb71cd
+  pins:
+    mq:
+      subscribers:
+        - name: transport
+          attributes:
+            - transport-event
+            - subscribe
+          linkTo:
+            - box: woodpecker1
+              pin: out_messages
+            - box: woodpecker2
+              pin: out_messages
+  customConfig:
+    maxTaskCount : 128
+    maxTaskDataSize : 268435456
+    maxRetryCount : 3
+  mqRouter:
+    prefetchCount: 100
   extendedSettings:
     envVariables:
-      JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000
-        milliseconds"
+      JAVA_TOOL_OPTIONS: >
+        -XX:+ExitOnOutOfMemoryError
+        -XX:+UseContainerSupport
+        -Dlog4j2.shutdownHookEnabled=false
+        -XX:MaxRAMPercentage=50
+        -Ddatastax-java-driver.advanced.connection.init-query-timeout="5000 milliseconds"
+        -Ddatastax-java-driver.basic.request.timeout="3 seconds"
+        -Dcom.sun.management.jmxremote
+        -Dcom.sun.management.jmxremote.port=2099
+        -Dcom.sun.management.jmxremote.rmi.port=2099
+        -Dcom.sun.management.jmxremote.ssl=false
+        -Dcom.sun.management.jmxremote.authenticate=false
+        -Dcom.sun.management.jmxremote.local.only=false
+        -Djava.rmi.server.hostname=127.0.0.1
     resources:
       limits:
-        cpu: 1000m
-        memory: 1001Mi
+        cpu: 2001m
+        memory: 502Mi
       requests:
-        cpu: 200m
-        memory: 200Mi
+        cpu: 1000m
+        memory: 100Mi
     service:
-      enabled: false
+      enabled: true
