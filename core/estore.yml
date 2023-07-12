@@ -6,18 +6,6 @@ spec:
   disabled: false
   imageName: ghcr.io/th2-net/th2-estore
   imageVersion: 5.0.0-dev-version-5-4891158135-2fb71cd
-  pins:
-    mq:
-      subscribers:
-        - name: transport
-          attributes:
-            - transport-event
-            - subscribe
-          linkTo:
-            - box: woodpecker1
-              pin: out_messages
-            - box: woodpecker2
-              pin: out_messages
   customConfig:
     maxTaskCount : 128
     maxTaskDataSize : 268435456
@@ -42,10 +30,10 @@ spec:
         -Djava.rmi.server.hostname=127.0.0.1
     resources:
       limits:
-        cpu: 2001m
+        cpu: 2000m
         memory: 502Mi
       requests:
-        cpu: 1000m
+        cpu: 100m
         memory: 100Mi
     service:
       enabled: true
