@@ -1,4 +1,4 @@
-apiVersion: th2.exactpro.com/v2
+apiVersion: th2.exactpro.com/v2-2
 kind: Th2CoreBox
 metadata:
   name: rpt-data-viewer

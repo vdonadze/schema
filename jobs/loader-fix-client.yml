@@ -1,4 +1,4 @@
-apiVersion: th2.exactpro.com/v2
+apiVersion: th2.exactpro.com/v2-2
 kind: Th2Job
 metadata:
   name: loader-fix-client
@@ -182,7 +182,4 @@ spec:
         - name: grpc
           exposedPort: 30778
           containerPort: 8081
-      ingress:
-        urlPaths:
-          - /loader/
-
+          urlPath: /loader/
