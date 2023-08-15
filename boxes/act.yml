@@ -75,6 +75,8 @@ spec:
         linkTo:
           - box: codec-fix
             pin: out_codec_decode
+          - box: rpt-data-provider
+            pin: to_codec-fix
       publishers:
       - name: to_send
         attributes:
